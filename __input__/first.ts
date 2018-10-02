@@ -1,11 +1,8 @@
 /*
-We can set default values for parameters
+Anonymous recursive function calls itself
 */
 
-const calculateDiscount = (price: number, rate: number = 0.5) => {
-  const discount = price * rate
-  console.log(`Discount: ${discount}`)
-}
-
-calculateDiscount(100)
-calculateDiscount(100, 0.3)
+;(() => {
+  const x: string = 'Hello'
+  console.log(`${x} world`)
+})()
