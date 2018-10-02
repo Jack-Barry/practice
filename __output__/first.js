@@ -1,37 +1,41 @@
-"use strict";
 /*
-let a = 5
-let b = 5
-let c = a + b
-
-console.log(c)
+var message: string = 'hello world'
+console.log(message)
 */
 /*
-class Car {
-  model: string
-  doors: number
-  isElectric: boolean
-
-  constructor(model: string, doors: number, isElectric: boolean) {
-    this.model = model
-    this.doors = doors
-    this.isElectric = isElectric
-  }
-
-  displayMake(): void {
-    console.log(`This car is a ${this.model}`)
+class Greeting {
+  greet(): void {
+    console.log('hey there')
   }
 }
 
-const Prius = new Car('Prius', 4, true)
-Prius.displayMake()
+var obj = new Greeting()
+
+obj.greet()
 */
-exports.__esModule = true;
-var Car = {
-    model: 'Prius',
-    make: 'Toyota',
-    display: function () {
-        console.log('Weenie Mobile');
-    }
-};
-Car.display();
+/*
+let username: string = 'Jack' // Type and definition
+let score1: number // Type only, definition is undefined
+let score2 = 30 // Definition only, Type is inferred to be number
+let score3 // Variable without Type or Definition
+*/
+/*
+This will throw an error because the value assigned must be the proper Type
+*/
+/*
+score1 = 'stuff'
+score2 = 'things'
+*/
+/*
+This will not throw an error because the variable has no Type to check against
+*/
+/*
+score3 = 'stuff'
+score3 = 30
+score3 = ['array', 'of', 'things']
+
+console.log(`Name: ${username}`)
+console.log(`Score1: ${score1}`)
+console.log(`Score2: ${score2}`)
+console.log(`Score3: ${score3}`)
+*/
