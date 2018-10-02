@@ -1,11 +1,23 @@
 /*
-  We can declare function variables as optional using a ?
+A rest parameter allows us to use ... notation to pass in an array of
+parameters. The number[] type declaration specifies our type to be an array
+of numbers
 */
-var myFunction = function (id, name, mail_id) {
-    console.log("ID:      " + id);
-    console.log("Name:    " + name);
-    if (mail_id != undefined)
-        console.log("Mail ID: " + mail_id);
+var addNums = function () {
+    var nums = [];
+    for (var _i = 0; _i < arguments.length; _i++) {
+        nums[_i] = arguments[_i];
+    }
+    var i;
+    var sum = 0;
+    for (i = 0; i < nums.length; i++) {
+        sum = sum + nums[i];
+    }
+    console.log("Sum: " + sum);
 };
-myFunction(23, 'Michael Jordan');
-myFunction(22, 'Michael Gordon', 'blah@thing.net');
+addNums(1, 2, 3, 4);
+addNums(10, 20, 30, 40);
+/*
+This would throw an error because we're trying to assign a string in the array
+addNums('stuff', 3, 7)
+*/
