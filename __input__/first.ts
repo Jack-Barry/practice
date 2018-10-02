@@ -1,19 +1,19 @@
-class Car {
-  // field
-  engine: string
+class Shape {
+  Area: number
 
-  // constructor
-  constructor(engine: string) {
-    this.engine = engine
-  }
-
-  // function
-  disp(): void {
-    console.log(`Engine is: ${this.engine}`)
+  constructor(a: number) {
+    this.Area = a
   }
 }
 
-const vw = new Car('350cc')
+class Circle extends Shape {
+  disp(): void {
+    console.log(`Area of the circle: ${this.Area}`)
+  }
+}
 
-console.log(vw.engine)
-vw.disp()
+const generic = new Shape(57)
+const circle = new Circle(28)
+
+console.log(`Generic area: ${generic.Area}`)
+circle.disp()
