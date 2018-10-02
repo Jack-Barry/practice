@@ -1,9 +1,21 @@
-/*
-We can use a union to allow for multiple types for a variable
-*/
-let val: string | number
+interface RunOptions {
+  program: string
+  commandline: string | (() => string)
+}
 
-val = 27
-console.log(`Val: ${val}`)
-val = 'stringy'
-console.log(`Val: ${val}`)
+const options: RunOptions = { program: 'test', commandline: 'another test' }
+
+console.log(`Program:     ${options.program}`)
+console.log(`Commandline: ${options.commandline}`)
+
+const moreOptions: RunOptions = {
+  program: 'test 2',
+  commandline: () => {
+    return 'stuff'
+  }
+}
+
+const commandlineFunc: any = moreOptions.commandline
+
+console.log(`Program:     ${moreOptions.program}`)
+console.log(`Commandline: ${commandlineFunc()}`)
