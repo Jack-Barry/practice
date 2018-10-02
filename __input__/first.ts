@@ -1,33 +1,10 @@
-class Root {
-  str: string
+class StaticExample {
+  static num: number
 
-  constructor(str: string) {
-    this.str = str
-  }
-
-  print(): void {
-    console.log(`Root says: ${this.str}`)
+  static disp(): void {
+    console.log(`Num is ${StaticExample.num}`)
   }
 }
 
-class Child extends Root {
-  print(): void {
-    console.log(`My str is: ${this.str}`)
-  }
-}
-class Leaf extends Child {
-  print(): void {
-    super.print()
-    console.log('I am a leaf')
-  }
-}
-
-const r = new Root('Hey')
-const c = new Child('Hello')
-const l = new Leaf('Hola')
-
-r.print()
-console.log('-----')
-c.print()
-console.log('-----')
-l.print()
+StaticExample.num = 22
+StaticExample.disp()
