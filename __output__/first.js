@@ -1,15 +1,17 @@
-var num = 20;
-console.log("Original: " + num);
-/* This would throw an error */
-// num = "I'm a string now!"
-/*
-But we can reassign the type so that it won't.
-This would throw an error, because the reassignment must be  subtype of the
-current type.
-
-num = <string> "I'm a string now!"
-
-The following works, because <string> is a subtype of <any>
-*/
-num = "I'm a string now!";
-console.log("New Type: " + num);
+var global_num = 20; //global, accessible anywhere
+var Numbers = /** @class */ (function () {
+    function Numbers() {
+        this.num = 10; //class, accessible on instances of the class
+    }
+    Numbers.prototype.storeNum = function () {
+        var local_num = 30; //local, only available within the method
+        return local_num;
+    };
+    Numbers.sval = 5; //static, available on class
+    return Numbers;
+}());
+var obj = new Numbers();
+console.log("global_num:   " + global_num);
+console.log("Numbers.sval: " + Numbers.sval);
+console.log("obj.num:      " + obj.num);
+console.log("local_num:    " + obj.storeNum());
