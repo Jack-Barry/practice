@@ -1,6 +1,14 @@
-var drummer = {};
-drummer.age = 23;
-drummer.instrument = 'drums';
-console.log(drummer.age + " years old, plays the " + drummer.instrument);
-var chld = { v: 4, w: 17 };
-console.log(chld.v + chld.w);
+var Car = /** @class */ (function () {
+    // constructor
+    function Car(engine) {
+        this.engine = engine;
+    }
+    // function
+    Car.prototype.disp = function () {
+        console.log("Engine is: " + this.engine);
+    };
+    return Car;
+}());
+var vw = new Car('350cc');
+console.log(vw.engine);
+vw.disp();

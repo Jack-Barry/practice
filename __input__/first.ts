@@ -1,26 +1,19 @@
-interface Person {
-  age: number
+class Car {
+  // field
+  engine: string
+
+  // constructor
+  constructor(engine: string) {
+    this.engine = engine
+  }
+
+  // function
+  disp(): void {
+    console.log(`Engine is: ${this.engine}`)
+  }
 }
 
-interface Musician extends Person {
-  instrument: string
-}
+const vw = new Car('350cc')
 
-let drummer = <Musician>{}
-drummer.age = 23
-drummer.instrument = 'drums'
-
-console.log(`${drummer.age} years old, plays the ${drummer.instrument}`)
-
-interface Parent1 {
-  v: number
-}
-
-interface Parent2 {
-  w: number
-}
-
-interface Child extends Parent1, Parent2 {}
-
-let chld: Child = { v: 4, w: 17 }
-console.log(chld.v + chld.w)
+console.log(vw.engine)
+vw.disp()
