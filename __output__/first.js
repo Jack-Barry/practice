@@ -1,41 +1,15 @@
+var num = 20;
+console.log("Original: " + num);
+/* This would throw an error */
+// num = "I'm a string now!"
 /*
-var message: string = 'hello world'
-console.log(message)
-*/
-/*
-class Greeting {
-  greet(): void {
-    console.log('hey there')
-  }
-}
+But we can reassign the type so that it won't.
+This would throw an error, because the reassignment must be  subtype of the
+current type.
 
-var obj = new Greeting()
+num = <string> "I'm a string now!"
 
-obj.greet()
+The following works, because <string> is a subtype of <any>
 */
-/*
-let username: string = 'Jack' // Type and definition
-let score1: number // Type only, definition is undefined
-let score2 = 30 // Definition only, Type is inferred to be number
-let score3 // Variable without Type or Definition
-*/
-/*
-This will throw an error because the value assigned must be the proper Type
-*/
-/*
-score1 = 'stuff'
-score2 = 'things'
-*/
-/*
-This will not throw an error because the variable has no Type to check against
-*/
-/*
-score3 = 'stuff'
-score3 = 30
-score3 = ['array', 'of', 'things']
-
-console.log(`Name: ${username}`)
-console.log(`Score1: ${score1}`)
-console.log(`Score2: ${score2}`)
-console.log(`Score3: ${score3}`)
-*/
+num = "I'm a string now!";
+console.log("New Type: " + num);
