@@ -1,21 +1,26 @@
-interface RunOptions {
-  program: string
-  commandline: string | (() => string)
+interface Person {
+  age: number
 }
 
-const options: RunOptions = { program: 'test', commandline: 'another test' }
-
-console.log(`Program:     ${options.program}`)
-console.log(`Commandline: ${options.commandline}`)
-
-const moreOptions: RunOptions = {
-  program: 'test 2',
-  commandline: () => {
-    return 'stuff'
-  }
+interface Musician extends Person {
+  instrument: string
 }
 
-const commandlineFunc: any = moreOptions.commandline
+let drummer = <Musician>{}
+drummer.age = 23
+drummer.instrument = 'drums'
 
-console.log(`Program:     ${moreOptions.program}`)
-console.log(`Commandline: ${commandlineFunc()}`)
+console.log(`${drummer.age} years old, plays the ${drummer.instrument}`)
+
+interface Parent1 {
+  v: number
+}
+
+interface Parent2 {
+  w: number
+}
+
+interface Child extends Parent1, Parent2 {}
+
+let chld: Child = { v: 4, w: 17 }
+console.log(chld.v + chld.w)
