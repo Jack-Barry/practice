@@ -11,23 +11,41 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-var Shape = /** @class */ (function () {
-    function Shape(a) {
-        this.Area = a;
+var Root = /** @class */ (function () {
+    function Root(str) {
+        this.str = str;
     }
-    return Shape;
+    Root.prototype.print = function () {
+        console.log("Root says: " + this.str);
+    };
+    return Root;
 }());
-var Circle = /** @class */ (function (_super) {
-    __extends(Circle, _super);
-    function Circle() {
+var Child = /** @class */ (function (_super) {
+    __extends(Child, _super);
+    function Child() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    Circle.prototype.disp = function () {
-        console.log("Area of the circle: " + this.Area);
+    Child.prototype.print = function () {
+        console.log("My str is: " + this.str);
     };
-    return Circle;
-}(Shape));
-var generic = new Shape(57);
-var circle = new Circle(28);
-console.log("Generic area: " + generic.Area);
-circle.disp();
+    return Child;
+}(Root));
+var Leaf = /** @class */ (function (_super) {
+    __extends(Leaf, _super);
+    function Leaf() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    Leaf.prototype.print = function () {
+        _super.prototype.print.call(this);
+        console.log('I am a leaf');
+    };
+    return Leaf;
+}(Child));
+var r = new Root('Hey');
+var c = new Child('Hello');
+var l = new Leaf('Hola');
+r.print();
+console.log('-----');
+c.print();
+console.log('-----');
+l.print();

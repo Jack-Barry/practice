@@ -1,19 +1,33 @@
-class Shape {
-  Area: number
+class Root {
+  str: string
 
-  constructor(a: number) {
-    this.Area = a
+  constructor(str: string) {
+    this.str = str
+  }
+
+  print(): void {
+    console.log(`Root says: ${this.str}`)
   }
 }
 
-class Circle extends Shape {
-  disp(): void {
-    console.log(`Area of the circle: ${this.Area}`)
+class Child extends Root {
+  print(): void {
+    console.log(`My str is: ${this.str}`)
+  }
+}
+class Leaf extends Child {
+  print(): void {
+    super.print()
+    console.log('I am a leaf')
   }
 }
 
-const generic = new Shape(57)
-const circle = new Circle(28)
+const r = new Root('Hey')
+const c = new Child('Hello')
+const l = new Leaf('Hola')
 
-console.log(`Generic area: ${generic.Area}`)
-circle.disp()
+r.print()
+console.log('-----')
+c.print()
+console.log('-----')
+l.print()
