@@ -1,0 +1,7 @@
+{
+  "compilerOptions": {
+    "outDir": "./../__output__"
+  },
+  "include": ["./../__input__/**/*.ts"],
+  "exclude": ["node_modules", "__output__"]
+}
