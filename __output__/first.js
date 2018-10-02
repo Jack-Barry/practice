@@ -1,17 +1,11 @@
-var global_num = 20; //global, accessible anywhere
-var Numbers = /** @class */ (function () {
-    function Numbers() {
-        this.num = 10; //class, accessible on instances of the class
-    }
-    Numbers.prototype.storeNum = function () {
-        var local_num = 30; //local, only available within the method
-        return local_num;
-    };
-    Numbers.sval = 5; //static, available on class
-    return Numbers;
-}());
-var obj = new Numbers();
-console.log("global_num:   " + global_num);
-console.log("Numbers.sval: " + Numbers.sval);
-console.log("obj.num:      " + obj.num);
-console.log("local_num:    " + obj.storeNum());
+/*
+  We can declare function variables as optional using a ?
+*/
+var myFunction = function (id, name, mail_id) {
+    console.log("ID:      " + id);
+    console.log("Name:    " + name);
+    if (mail_id != undefined)
+        console.log("Mail ID: " + mail_id);
+};
+myFunction(23, 'Michael Jordan');
+myFunction(22, 'Michael Gordon', 'blah@thing.net');

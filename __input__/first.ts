@@ -1,18 +1,13 @@
-let global_num: number = 20 //global, accessible anywhere
+/* 
+  We can declare function variables as optional using a ?
+*/
 
-class Numbers {
-  num: number = 10 //class, accessible on instances of the class
-  static sval: number = 5 //static, available on class
+const myFunction = (id: number, name: string, mail_id?: string) => {
+  console.log(`ID:      ${id}`)
+  console.log(`Name:    ${name}`)
 
-  storeNum(): number {
-    let local_num: number = 30 //local, only available within the method
-    return local_num
-  }
+  if (mail_id != undefined) console.log(`Mail ID: ${mail_id}`)
 }
 
-const obj = new Numbers()
-
-console.log(`global_num:   ${global_num}`)
-console.log(`Numbers.sval: ${Numbers.sval}`)
-console.log(`obj.num:      ${obj.num}`)
-console.log(`local_num:    ${obj.storeNum()}`)
+myFunction(23, 'Michael Jordan')
+myFunction(22, 'Michael Gordon', 'blah@thing.net')
