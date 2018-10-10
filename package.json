@@ -6,5 +6,13 @@
   "private": true,
   "keywords": [],
   "author": "Jack Barry",
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "babel": "./node_modules/.bin/babel src --out-dir dist"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.1.2",
+    "@babel/core": "^7.1.2",
+    "@babel/preset-env": "^7.1.0"
+  }
 }
