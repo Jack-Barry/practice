@@ -1,11 +1,9 @@
 import { IConfigObject, config } from './../defaultConfig'
 
-interface IConfiguratorInputs {}
-
 export class Configurator {
   config: IConfigObject
 
-  constructor(inputs: IConfiguratorInputs = {}) {
+  constructor() {
     this.config = config
   }
 }
