@@ -1,4 +1,4 @@
-import { CLI } from "./cli";
+import { CLI } from "./CLI";
 import path from "path";
 const mock = require("mock-fs");
 

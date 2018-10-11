@@ -1,4 +1,4 @@
-import * as globals from "./globals";
+import * as globals from "../globals";
 import fs from "fs";
 import path from "path";
 const chalk = require("chalk");

@@ -13,7 +13,8 @@
     "build:types": "tsc --emitDeclarationOnly",
     "build:js": "babel src --out-dir lib --extensions \".ts,.tsx\" --source-maps inline",
     "build": "npm run build:types && npm run build:js",
-    "jest": "jest"
+    "jest": "jest",
+    "clean:lib": "shx rm -rf lib/*"
   },
   "bin": {
     "fpcli": "./index.js"
@@ -28,6 +29,7 @@
     "@types/node": "^10.11.7",
     "jest": "^23.6.0",
     "mock-fs": "^4.7.0",
+    "shx": "^0.3.2",
     "ts-jest": "^23.10.4",
     "typescript": "^3.1.2"
   }

@@ -1,4 +1,4 @@
-import { CLI } from "./cli";
+import { CLI } from "./CLI/CLI";
 
 const cli = new CLI(process.argv);
 
