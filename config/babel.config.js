@@ -3,9 +3,9 @@ module.exports = api => {
 
   return {
     presets: ["@babel/preset-env", "@babel/preset-typescript"],
-    include: ["src"],
+    include: ["./../src"],
     exclude: ["node_modules"],
-    ignore: ["src/**/*.spec.ts", "src/**/*.spec.js"],
+    ignore: ["./../src/**/*.spec.ts", "./../src/**/*.spec.js"],
     sourceMaps: true
   };
 };

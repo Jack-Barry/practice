@@ -8,12 +8,10 @@
   "author": "Jack Barry",
   "license": "MIT",
   "scripts": {
-    "type-check": "tsc -- --noEmit",
-    "type-check:watch": "npm run type-check -- --watch",
-    "build:types": "tsc --emitDeclarationOnly",
-    "build:js": "babel src --out-dir lib --extensions \".ts,.tsx\" --source-maps inline",
+    "build:types": "tsc -p config/tsconfig.json",
+    "build:js": "babel --config-file ./config/babel.config.js src --out-dir lib --extensions \".ts,.tsx\" --source-maps inline",
     "build": "npm run build:types && npm run build:js",
-    "jest": "jest",
+    "jest": "jest --config=config/jest.config.js",
     "clean:lib": "shx rm -rf lib/*"
   },
   "bin": {

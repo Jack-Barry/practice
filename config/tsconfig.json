@@ -3,10 +3,12 @@
     "target": "esnext",
     "module": "commonjs",
     "declaration": true,
-    "outDir": "lib",
+    "outDir": "./../lib",
     "strict": true,
     "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "emitDeclarationOnly": true
   },
-  "exclude": ["node_modules", "**/*.spec.*"]
+  "include": ["./../src"],
+  "exclude": ["node_modules", "./../**/*.spec.*"]
 }
