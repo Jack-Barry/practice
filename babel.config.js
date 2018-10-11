@@ -5,7 +5,7 @@ module.exports = api => {
     presets: ["@babel/preset-env", "@babel/preset-typescript"],
     include: ["src"],
     exclude: ["node_modules"],
-    ignore: ["./index.js", "**/*.spec.(ts|js)"],
+    ignore: ["src/**/*.spec.ts", "src/**/*.spec.js"],
     sourceMaps: true
   };
 };
