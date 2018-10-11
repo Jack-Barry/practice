@@ -11,11 +11,15 @@
     "build:types": "tsc -p config/tsconfig.json",
     "build:js": "babel --config-file ./config/babel.config.js src --out-dir lib --extensions \".ts,.tsx\" --source-maps inline",
     "build": "npm run build:types && npm run build:js",
-    "jest": "jest --config=config/jest.config.js",
+    "jest": "jest --config=config/jest.config.js --coverage",
     "clean:lib": "shx rm -rf lib/*"
   },
   "bin": {
     "fpcli": "./index.js"
+  },
+  "prettier": {
+    "singleQuote": true,
+    "semi": false
   },
   "devDependencies": {
     "@babel/cli": "^7.1.2",

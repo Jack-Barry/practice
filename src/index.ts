@@ -1,5 +1,5 @@
-import { CLI } from "./CLI/CLI";
+import { CLI } from './CLI/CLI'
 
-const cli = new CLI(process.argv);
+const cli = new CLI(process.argv)
 
-cli.run();
+cli.run()
