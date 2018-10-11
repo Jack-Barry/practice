@@ -1,1 +1,1 @@
-console.log("An example");
+export * from "./globals";
