@@ -1,9 +1,8 @@
-export interface IConfigObject {
-}
-interface IConfigInputs {
+import { IConfigObject } from './../defaultConfig';
+interface IConfiguratorInputs {
 }
 export declare class Configurator {
-    constructor(inputs?: IConfigInputs);
+    constructor(inputs?: IConfiguratorInputs);
     setup(): IConfigObject;
 }
 export {};

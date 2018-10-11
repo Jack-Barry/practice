@@ -1,2 +1,3 @@
-import { IConfigObject } from './Configurator';
+export interface IConfigObject {
+}
 export declare const config: IConfigObject;

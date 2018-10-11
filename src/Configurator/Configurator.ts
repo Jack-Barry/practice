@@ -1,17 +1,15 @@
-import { config } from './../defaultConfig'
-import { jsonPrint } from './../globals'
+import { IConfigObject, config } from './../defaultConfig'
+import { jsonify } from './../globals'
 
-export interface IConfigObject {}
-
-interface IConfigInputs {}
+interface IConfiguratorInputs {}
 
 export class Configurator {
-  constructor(inputs: IConfigInputs = {}) {
-    console.log(`inputs: ${jsonPrint(inputs)}`)
+  constructor(inputs: IConfiguratorInputs = {}) {
+    console.log(`inputs: ${jsonify(inputs)}`)
   }
 
   public setup(): IConfigObject {
-    console.log(`defaultConfig: ${jsonPrint(config)}`)
+    console.log(`defaultConfig: ${jsonify(config)}`)
     return {}
   }
 }

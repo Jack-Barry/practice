@@ -6,4 +6,4 @@ export declare class Paths {
     projectConfigPath: string;
     constructor();
 }
-export declare function jsonPrint(text: any): string;
+export declare function jsonify(text: any): string;

@@ -20,6 +20,6 @@ export class Paths {
   }
 }
 
-export function jsonPrint(text: any) {
+export function jsonify(text: any) {
   return JSON.stringify(text, null, 2)
 }
