@@ -1,5 +1,3 @@
-import { CLI } from './CLI/CLI'
+import { Configurator } from './Configurator'
 
-const cli = new CLI(process.argv)
-
-cli.run()
+const cli = new Configurator()
