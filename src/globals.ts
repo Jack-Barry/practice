@@ -1,5 +1,13 @@
 import path from "path";
 
-export const moduleRoot: string = path.resolve(__dirname, "..");
-export const callerDir: string = path.dirname(require.main!.filename);
-export const workingDir: string = process.cwd();
+export class Paths {
+  moduleRoot: string;
+  callingDir: string;
+  workingDir: string;
+
+  constructor() {
+    this.moduleRoot = path.resolve(__dirname, "..");
+    this.callingDir = path.dirname(require.main!.filename);
+    this.workingDir = process.cwd();
+  }
+}

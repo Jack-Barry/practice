@@ -1,3 +1,6 @@
-export declare const moduleRoot: string;
-export declare const callerDir: string;
-export declare const workingDir: string;
+export declare class Paths {
+    moduleRoot: string;
+    callingDir: string;
+    workingDir: string;
+    constructor();
+}

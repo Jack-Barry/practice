@@ -1,5 +1,6 @@
 const globals = require("./lib/globals");
+const globalPaths = new globals.Paths();
 
-console.log(globals.moduleRoot);
-console.log(globals.callerDir);
-console.log(globals.workingDir);
+console.log(globalPaths.workingDir);
+console.log(globalPaths.moduleRoot);
+console.log(globalPaths.callingDir);
