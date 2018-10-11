@@ -1,8 +1,5 @@
-import * as globals from "./globals";
+import { CLI } from "./cli";
 
-const globalPaths = new globals.Paths();
+const cli = new CLI();
 
-console.log(globalPaths.workingDir);
-console.log(globalPaths.configPath);
-console.log(globalPaths.moduleRoot);
-console.log(globalPaths.callingDir);
+cli.run();
