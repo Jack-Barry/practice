@@ -5,8 +5,8 @@ const mock = require("mock-fs");
 describe(".parseForConfig()", () => {
   let cli: CLI;
 
-  beforeAll(() => {
-    cli = new CLI();
+  beforeEach(() => {
+    cli = new CLI([]);
   });
 
   afterEach(() => {

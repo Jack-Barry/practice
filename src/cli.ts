@@ -5,51 +5,51 @@ const chalk = require("chalk");
 
 export class CLI {
   globalPaths: globals.Paths;
-  run: () => void;
-  parseForConfig: (inputs: Array<string>) => string | null;
+  args: Array<string>;
 
-  constructor() {
+  constructor(args: Array<string>) {
     this.globalPaths = new globals.Paths();
+    this.args = args;
+  }
 
-    this.run = function run(): void {
+  public run(): void {
+    try {
+      const useConfig = this.parseForConfig(this.args);
+      if (useConfig != null) {
+        console.log(
+          chalk.green(`Provided config: ${this.parseForConfig(this.args)}`)
+        );
+        this.globalPaths.configPath = useConfig;
+      } else {
+        console.log(
+          chalk.green(`Using config: ${this.globalPaths.configPath}`)
+        );
+      }
+    } catch (err) {
+      console.error(chalk.red(err.message));
+    }
+  }
+
+  public parseForConfig(inputs: Array<string>): string | null {
+    let output = null;
+
+    if (inputs.includes("--config")) {
+      const providedPath: string = inputs[inputs.indexOf("--config") + 1];
+
       try {
-        const useConfig = this.parseForConfig(process.argv);
-        if (useConfig != null) {
-          console.log(
-            chalk.green(`Provided config: ${this.parseForConfig(process.argv)}`)
-          );
-          this.globalPaths.configPath = useConfig;
-        } else {
-          console.log(
-            chalk.green(`Using config: ${this.globalPaths.configPath}`)
-          );
-        }
+        const configPath = path.resolve(
+          this.globalPaths.workingDir,
+          providedPath
+        );
+        fs.accessSync(configPath);
+        output = configPath;
       } catch (err) {
-        console.error(chalk.red(err.message));
+        throw Error(
+          `You provided an invalid path for the --config flag.\nProvided path:\n\n${providedPath}`
+        );
       }
-    };
+    }
 
-    this.parseForConfig = function parseForConfig(inputs): string | null {
-      let output = null;
-
-      if (inputs.includes("--config")) {
-        const providedPath: string = inputs[inputs.indexOf("--config") + 1];
-
-        try {
-          const configPath = path.resolve(
-            this.globalPaths.workingDir,
-            providedPath
-          );
-          fs.accessSync(configPath);
-          output = configPath;
-        } catch (err) {
-          throw Error(
-            `You provided an invalid path for the --config flag.\nProvided path:\n\n${providedPath}`
-          );
-        }
-      }
-
-      return output;
-    };
+    return output;
   }
 }
