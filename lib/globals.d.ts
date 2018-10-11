@@ -1,7 +1,8 @@
 export declare class Paths {
     moduleRoot: string;
+    defaultConfigPath: string;
     callingDir: string;
     workingDir: string;
-    configPath: string;
+    projectConfigPath: string;
     constructor();
 }

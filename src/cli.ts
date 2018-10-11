@@ -13,16 +13,17 @@ export class CLI {
   }
 
   public run(): void {
+    console.log(JSON.stringify(this.globalPaths, null, 2));
     try {
       const useConfig = this.parseForConfig(this.args);
       if (useConfig != null) {
         console.log(
           chalk.green(`Provided config: ${this.parseForConfig(this.args)}`)
         );
-        this.globalPaths.configPath = useConfig;
+        this.globalPaths.projectConfigPath = useConfig;
       } else {
         console.log(
-          chalk.green(`Using config: ${this.globalPaths.configPath}`)
+          chalk.green(`Using config: ${this.globalPaths.projectConfigPath}`)
         );
       }
     } catch (err) {

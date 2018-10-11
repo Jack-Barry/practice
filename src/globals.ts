@@ -2,14 +2,20 @@ import path from "path";
 
 export class Paths {
   moduleRoot: string;
+  defaultConfigPath: string;
   callingDir: string;
   workingDir: string;
-  configPath:string;
+  projectConfigPath: string;
 
   constructor() {
     this.moduleRoot = path.resolve(__dirname, "..");
+    this.defaultConfigPath = path.resolve(
+      this.moduleRoot,
+      "lib",
+      "defaultConfig.js"
+    );
     this.callingDir = path.dirname(require.main!.filename);
     this.workingDir = process.cwd();
-    this.configPath = path.resolve(this.workingDir, 'fpcli.config.js')
+    this.projectConfigPath = path.resolve(this.workingDir, "fpcli.config.js");
   }
 }
