@@ -19,3 +19,7 @@ export class Paths {
     this.projectConfigPath = path.resolve(this.workingDir, 'fpcli.config.js')
   }
 }
+
+export function jsonPrint(text: any) {
+  return JSON.stringify(text, null, 2)
+}
