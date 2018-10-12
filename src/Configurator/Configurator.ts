@@ -3,6 +3,13 @@ import { ConfigObject } from './ConfigObject'
 import { config as defaultConfig } from './../defaultConfig'
 import path from 'path'
 
+const paths: Paths = new Paths()
+
+interface IConfiguratorInputs {
+  rootPath?: string
+  projectConfigSubPath?: string
+}
+
 interface IConfigurator {
   readonly project_root: string
   readonly project_config: string
@@ -18,26 +25,23 @@ export class Configurator implements IConfigurator {
   readonly configs: Array<ConfigObject>
   readonly result: ConfigObject
 
-  constructor({
-    rootPath,
-    projectConfigSubPath
-  }: {
-    rootPath?: string
-    projectConfigSubPath?: string
-  }) {
-    const paths: Paths = new Paths()
-    if (typeof rootPath == 'undefined') {
-      this.project_root = paths.callingDir
-    } else {
-      this.project_root = path.resolve(paths.callingDir, rootPath)
-    }
-
-    if (typeof projectConfigSubPath == 'undefined')
-      projectConfigSubPath = paths.projectConfigSubPath
-
-    this.project_config = projectConfigSubPath
+  constructor({ rootPath, projectConfigSubPath }: IConfiguratorInputs) {
+    this.project_root = this.assignRoot(rootPath)
+    this.project_config = this.assignProjectConfig(projectConfigSubPath)
     this.default_config = defaultConfig
     this.configs = [this.default_config]
     this.result = { ...this.default_config }
+  }
+
+  private assignRoot(rootPath?: string): string {
+    return typeof rootPath == 'undefined'
+      ? paths.callingDir
+      : path.resolve(paths.callingDir, rootPath)
+  }
+
+  private assignProjectConfig(projectConfigSubPath?: string): string {
+    return typeof projectConfigSubPath == 'undefined'
+      ? paths.projectConfigSubPath
+      : projectConfigSubPath
   }
 }

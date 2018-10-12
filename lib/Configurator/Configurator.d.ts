@@ -1,4 +1,8 @@
 import { ConfigObject } from './ConfigObject';
+interface IConfiguratorInputs {
+    rootPath?: string;
+    projectConfigSubPath?: string;
+}
 interface IConfigurator {
     readonly project_root: string;
     readonly project_config: string;
@@ -12,9 +16,8 @@ export declare class Configurator implements IConfigurator {
     readonly default_config: ConfigObject;
     readonly configs: Array<ConfigObject>;
     readonly result: ConfigObject;
-    constructor({ rootPath, projectConfigSubPath }: {
-        rootPath?: string;
-        projectConfigSubPath?: string;
-    });
+    constructor({ rootPath, projectConfigSubPath }: IConfiguratorInputs);
+    private assignRoot;
+    private assignProjectConfig;
 }
 export {};
