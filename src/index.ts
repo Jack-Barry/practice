@@ -1,11 +1,21 @@
-interface LabelledValue {
-  label: string
+interface SquareConfig {
+  color?: string
+  width?: number
 }
 
-function printLabel(labelledObj: LabelledValue) {
-  console.log(labelledObj.label)
+function createSquare(config: SquareConfig): { color: string; area: number } {
+  let newSquare = { color: 'white', area: 100 }
+
+  if (config.color) {
+    newSquare.color = config.color
+  }
+  if (config.width) {
+    newSquare.area = config.width ** 2
+  }
+
+  return newSquare
 }
 
-let myObj = { size: 10, label: 'Size 10 Object' }
+let mySquare = createSquare({ color: 'black' })
 
-printLabel(myObj)
+console.log(mySquare)
