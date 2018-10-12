@@ -1,6 +1,7 @@
-declare function printLabel(labelledObj: {
+interface LabelledValue {
     label: string;
-}): void;
+}
+declare function printLabel(labelledObj: LabelledValue): void;
 declare let myObj: {
     size: number;
     label: string;

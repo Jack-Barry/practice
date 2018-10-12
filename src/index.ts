@@ -1,4 +1,8 @@
-function printLabel(labelledObj: { label: string }) {
+interface LabelledValue {
+  label: string
+}
+
+function printLabel(labelledObj: LabelledValue) {
   console.log(labelledObj.label)
 }
 
