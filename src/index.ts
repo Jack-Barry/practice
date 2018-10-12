@@ -1,15 +1,21 @@
-let a: number[] = [1, 2, 3, 4]
-let ro: ReadonlyArray<number> = a
+interface SquareConfig {
+  color?: string
+  width?: number
+}
 
-/**
- * Error, ReadonlyArray does not allow updating of values
- * ro[0] = 12
- * ro.push(5)
- * ro.length = 100
- * a = ro
- */
+function createSquare(config: SquareConfig): { color: string; area: number } {
+  let newSquare = { color: 'white', area: 100 }
 
-/**
- * The following is allowed by overriding with a type assertion
- */
-a = ro as number[]
+  if (config.color) {
+    newSquare.color = config.color
+  }
+  if (config.width) {
+    newSquare.area = config.width ** 2
+  }
+
+  return newSquare
+}
+
+let mySquare = createSquare({ colour: 'red', width: 10 } as SquareConfig)
+
+console.log(mySquare)
