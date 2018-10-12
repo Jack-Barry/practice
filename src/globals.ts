@@ -5,7 +5,7 @@ export class Paths {
   defaultConfigPath: string
   callingDir: string
   workingDir: string
-  projectConfigPath: string
+  projectConfigSubPath: string
 
   constructor() {
     this.moduleRoot = path.resolve(__dirname, '..')
@@ -16,7 +16,7 @@ export class Paths {
     )
     this.callingDir = path.dirname(require.main!.filename)
     this.workingDir = process.cwd()
-    this.projectConfigPath = path.resolve(this.workingDir, 'fpcli.config.js')
+    this.projectConfigSubPath = 'fpcli.config.js'
   }
 }
 

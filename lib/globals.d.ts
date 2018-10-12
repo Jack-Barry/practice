@@ -3,7 +3,7 @@ export declare class Paths {
     defaultConfigPath: string;
     callingDir: string;
     workingDir: string;
-    projectConfigPath: string;
+    projectConfigSubPath: string;
     constructor();
 }
 export declare function jsonify(text: any): string;
