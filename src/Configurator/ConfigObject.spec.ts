@@ -1,15 +1,13 @@
 import { ConfigObject } from './ConfigObject'
 
-describe('ConfigObject', () => {
-  it('throws an error when an invalid object is provided', () => {
-    expect(() => {
-      new ConfigObject({ invalid: 'property' })
-    }).toThrowError()
-  })
+let configObject: ConfigObject
 
-  it('initializes with properties set when a valid object is provided', () => {
-    const validConfig = {}
-    const configObject = new ConfigObject(validConfig)
-    expect(configObject).toEqual({})
+beforeEach(() => {
+  configObject = new ConfigObject()
+})
+
+describe('ConfigObject', () => {
+  it('runs specs', () => {
+    console.log(configObject)
   })
 })
