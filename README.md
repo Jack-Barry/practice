@@ -66,3 +66,21 @@ portable vanilla _JavaScript_.
 ## Running
 
 When developing, you can run `npm link` to be able to use the CLI globally.
+
+# Gotchas
+
+## `Object.assign()`
+
+`Object.assign({}, obj, ...)` breaks type checks. Use the rest operator instead.
+
+Don't do this:
+
+```js
+const thing: Type = Object.assign({}, obj1, obj2)
+```
+
+Do this instead:
+
+```js
+const thing: Type = { ...obj1, ...obj2 }
+```

@@ -30,10 +30,12 @@ describe('ToolObject', () => {
   })
 
   it('returns a tool if the input is valid', () => {
-    const input = Object.assign({}, toolInput, {
+    const input = {
+      ...toolInput,
       description: 'A description',
-      flags: ['some', 'flags']
-    })
+      flags: [{ name: 'A flag' }, { name: 'Another flag' }]
+    }
+
     const validTool = new ToolObject(input)
     expect(validTool).toEqual(input)
   })

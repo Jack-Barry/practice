@@ -1,15 +1,17 @@
+import { FlagObject } from './../FlagObject'
+
 interface IToolObject {
   matcher: string
   name: string
   description?: string
-  flags?: Array<any>
+  flags?: Array<FlagObject>
 }
 
 export class ToolObject implements IToolObject {
   matcher: string
   name: string
   description?: string
-  flags?: Array<any>
+  flags?: Array<FlagObject>
 
   constructor(tool: IToolObject) {
     this.matcher = tool.matcher
