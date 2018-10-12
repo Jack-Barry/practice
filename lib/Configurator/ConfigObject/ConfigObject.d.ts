@@ -1,7 +1,8 @@
+import { ToolObject } from './../ToolObject';
 export interface IConfigObject {
-    tools?: Array<any>;
+    tools?: Array<ToolObject>;
 }
 export declare class ConfigObject implements IConfigObject {
-    tools?: Array<any>;
+    tools?: Array<ToolObject>;
     constructor(config?: IConfigObject);
 }

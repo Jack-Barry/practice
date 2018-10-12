@@ -1,4 +1,5 @@
 import { ConfigObject } from './ConfigObject'
+import { ToolObject } from './../ToolObject'
 
 describe('ConfigObject', () => {
   it('initializes with `tools` set to an empty array', () => {
@@ -18,7 +19,11 @@ describe('ConfigObject', () => {
   })
 
   it('returns a config if the input is valid', () => {
-    const validConfig = new ConfigObject({ tools: [{}, {}, {}] })
-    expect(validConfig).toEqual({ tools: [{}, {}, {}] })
+    const tools: Array<ToolObject> = [
+      { matcher: '-to', name: 'Tool One' },
+      { matcher: '-tt', name: 'Tool Three' }
+    ]
+    const validConfig = new ConfigObject({ tools })
+    expect(validConfig).toEqual({ tools })
   })
 })
