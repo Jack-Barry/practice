@@ -1,4 +1,4 @@
-import { IConfigObject } from './../defaultConfig';
+import { IConfigObject } from './ConfigObject';
 export declare class Configurator {
     config: IConfigObject;
     constructor();
