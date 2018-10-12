@@ -1,4 +1,6 @@
 import { jsonify } from './globals'
-import { config } from './defaultConfig'
+import { Configurator } from './Configurator'
 
-console.log(jsonify(config))
+const configurator: Configurator = new Configurator({})
+
+console.log(jsonify(configurator))

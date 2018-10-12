@@ -19,5 +19,6 @@ export declare class Configurator implements IConfigurator {
     constructor({ rootPath, projectConfigSubPath }: IConfiguratorInputs);
     private assignRoot;
     private assignProjectConfig;
+    private buildConfigArray;
 }
 export {};

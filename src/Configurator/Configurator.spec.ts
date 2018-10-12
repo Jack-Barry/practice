@@ -28,16 +28,16 @@ describe('Configurator', () => {
       })
 
       it('properly assigns the `default_config`', () => {
-        expect(configurator.default_config).toEqual(defaultConfig)
+        expect(configurator.default_config).toEqual(defaultConfig())
       })
 
       it('properly includes the `default_config` in `configs`', () => {
-        expect(configurator.configs).toContain(defaultConfig)
+        expect(configurator.configs[0]).toEqual(defaultConfig())
       })
 
       describe('when the default project config subpath does not yield a config', () => {
         it('sets the result to equal the `default_config`', () => {
-          expect(configurator.result).toEqual(defaultConfig)
+          expect(configurator.result).toEqual(defaultConfig())
         })
       })
 
@@ -74,7 +74,7 @@ describe('Configurator', () => {
 
       describe('when the default project config subpath does not yield a config', () => {
         it('sets the result to equal the `default_config`', () => {
-          expect(configurator.result).toEqual(defaultConfig)
+          expect(configurator.result).toEqual(defaultConfig())
         })
       })
 

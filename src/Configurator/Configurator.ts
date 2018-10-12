@@ -1,6 +1,6 @@
 import { Paths } from './../globals'
 import { ConfigObject } from './ConfigObject'
-import { config as defaultConfig, config } from './../defaultConfig'
+import { config as defaultConfig } from './../defaultConfig'
 import path from 'path'
 
 const paths: Paths = new Paths()
@@ -28,7 +28,7 @@ export class Configurator implements IConfigurator {
   constructor({ rootPath, projectConfigSubPath }: IConfiguratorInputs) {
     this.project_root = this.assignRoot(rootPath)
     this.project_config = this.assignProjectConfig(projectConfigSubPath)
-    this.default_config = defaultConfig
+    this.default_config = defaultConfig()
     this.configs = this.buildConfigArray()
     this.result = { ...this.default_config }
   }
