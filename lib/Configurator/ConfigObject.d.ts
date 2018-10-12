@@ -1,5 +1,7 @@
 export interface IConfigObject {
+    tools?: Array<any>;
 }
 export declare class ConfigObject implements IConfigObject {
-    constructor();
+    tools?: Array<any>;
+    constructor(config?: IConfigObject);
 }

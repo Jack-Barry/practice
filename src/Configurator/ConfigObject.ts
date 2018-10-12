@@ -1,5 +1,11 @@
-export interface IConfigObject {}
+export interface IConfigObject {
+  tools?: Array<any>
+}
 
 export class ConfigObject implements IConfigObject {
-  constructor() {}
+  tools?: Array<any>
+
+  constructor(config: IConfigObject = {}) {
+    this.tools = config.tools || []
+  }
 }
