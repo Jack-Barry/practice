@@ -1,6 +1,6 @@
 import { Paths } from './../globals'
 import { ConfigObject } from './ConfigObject'
-import { config as defaultConfig } from './../defaultConfig'
+import { config as defaultConfig, config } from './../defaultConfig'
 import path from 'path'
 
 const paths: Paths = new Paths()
@@ -29,7 +29,7 @@ export class Configurator implements IConfigurator {
     this.project_root = this.assignRoot(rootPath)
     this.project_config = this.assignProjectConfig(projectConfigSubPath)
     this.default_config = defaultConfig
-    this.configs = [this.default_config]
+    this.configs = this.buildConfigArray()
     this.result = { ...this.default_config }
   }
 
@@ -43,5 +43,22 @@ export class Configurator implements IConfigurator {
     return typeof projectConfigSubPath == 'undefined'
       ? paths.projectConfigSubPath
       : projectConfigSubPath
+  }
+
+  private buildConfigArray() {
+    let output: Array<ConfigObject> = [this.default_config]
+
+    const configModifierPath: string = path.resolve(
+      this.project_root,
+      this.project_config
+    )
+
+    try {
+      output.push(require(configModifierPath))
+    } catch (err) {
+      // Nothing was found, nothing to do here folks
+    }
+
+    return output
   }
 }
