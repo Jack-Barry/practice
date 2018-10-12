@@ -1,21 +1,14 @@
-interface SquareConfig {
-  color?: string
-  width?: number
+interface Point {
+  readonly x: number
+  readonly y: number
 }
 
-function createSquare(config: SquareConfig): { color: string; area: number } {
-  let newSquare = { color: 'white', area: 100 }
+let p1: Point = { x: 10, y: 20 }
 
-  if (config.color) {
-    newSquare.color = config.color
-  }
-  if (config.width) {
-    newSquare.area = config.width ** 2
-  }
-
-  return newSquare
-}
-
-let mySquare = createSquare({ color: 'black' })
-
-console.log(mySquare)
+/**
+ * Error, cannot overrwite a readonly attribute. It can only be assigned
+ * at initialization
+ *
+ * p1.x = 5
+ *
+ * */
