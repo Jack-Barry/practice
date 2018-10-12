@@ -1,6 +1,6 @@
 export declare class Paths {
-    moduleRoot: string;
-    callingDir: string;
     workingDir: string;
+    callingDir: string;
+    moduleRoot: string;
     constructor();
 }
