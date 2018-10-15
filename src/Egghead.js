@@ -1,29 +1,24 @@
-const obj = {
-  firstName: 'Jack',
-  lastName: 'Barry'
-}
-
-const protoObj = {
-  hair: 'Brown',
-  lastName: 'Barri'
-}
-
-Object.setPrototypeOf(obj, protoObj)
-
-let m = 0
-let n = 0
-
-for (let prop in obj) {
-  if (obj.hasOwnProperty(prop)) {
-    m++
+const parent = {
+  hair: 'brown',
+  heightInInches() {
+    return this.height * 12
   }
-
-  n++
 }
 
-// hasOwnProperty restricts properties to specific object, no looking up the
-// prototype chain
-console.log(m)
+// Using Object.create uses the prototype to inherit from
+const childA = Object.create(parent)
 
-// for loop only iterates over unique properties in the prototype chain
-console.log(n)
+// Using Object.assign creates a new object entirely
+const childB = Object.assign({ height: 5 }, parent)
+
+childA.height = 6
+
+console.log(childA.heightInInches())
+console.log(childB.heightInInches())
+
+// This changes the prototype, so the object created using Object.create is
+// changed, but the object created using Object.assign is not.
+parent.heightInInches = () => true
+
+console.log(childA.heightInInches())
+console.log(childB.heightInInches())
