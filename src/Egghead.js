@@ -1,38 +1,22 @@
-function Car(make) {
-  this.make = make
-}
+const createUser = (character, smart = true) => ({
+  smart,
+  ...character,
+  type: 'human'
+})
 
-function Boat(engine) {
-  this.engine = engine
-}
+const jack = createUser({
+  hair: 'brown',
+  height: '6 foot',
+  smart: false
+})
 
-Object.setPrototypeOf(Boat.prototype, Car.prototype)
+const sally = createUser({
+  hair: 'blonde',
+  height: '5 foot 4'
+})
 
-const myBoat = new Boat('Mercury')
-const myCar = new Car('Ford')
+console.log(jack.type)
+console.log(jack.smart)
 
-// instanceof checks all properties of constructor appear in prototype chain of
-// object.
-console.log(myCar instanceof Car)
-console.log(myBoat instanceof Car)
-
-// Repeating as classes
-class CarC {
-  constructor(make) {
-    this.make = make
-  }
-}
-
-class BoatC {
-  constructor(engine) {
-    this.engine = engine
-  }
-}
-
-Object.setPrototypeOf(BoatC.prototype, CarC.prototype)
-
-const myBoatC = new BoatC('Mercury')
-const myCarC = new CarC('Ford')
-
-console.log(myCarC instanceof CarC)
-console.log(myBoatC instanceof CarC)
+console.log(sally.type)
+console.log(sally.smart)
