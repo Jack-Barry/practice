@@ -1,24 +1,25 @@
-function Foo() {}
+'use strict'
 
-console.log(Foo.prototype.constructor)
+function Foo(name) {
+  this.name = name
+}
 
-Foo.prototype = {}
+Foo.prototype.myName = function() {
+  return this.name
+}
 
-console.log(Foo.prototype.constructor)
+function Bar(name) {
+  Foo.call(this, name)
+}
 
-const a = new Foo()
+const a = new Foo('Jack')
+const b = new Bar('Back')
 
-console.log(a.constructor === Foo)
-console.log(a.constructor === Object)
+console.log(a)
+console.log(b)
 
-Object.defineProperty(Foo.prototype, 'constructor', {
-  enumerable: false,
-  writable: true,
-  configurable: true,
-  value: Foo
-})
+Bar.prototype = Object.create(Foo.prototype)
 
-const b = new Foo()
+const c = new Bar('Cack')
 
-console.log(b.constructor === Foo)
-console.log(b.constructor === Object)
+console.log(c)
