@@ -1,22 +1,54 @@
-const createUser = (character, smart = true) => ({
-  smart,
-  ...character,
-  type: 'human'
+'use strict'
+
+const foo = {
+  name: 'jack'
+}
+
+const bar = { lastName: 'barry' }
+
+Object.setPrototypeOf(bar, foo)
+
+console.log(bar.name)
+
+bar.name = 'back'
+console.log(bar.name)
+
+// How to set read-only properties on a prototype
+const fooN = {}
+
+Object.defineProperty(fooN, 'name', {
+  value: 'crack',
+  writable: false
 })
 
-const jack = createUser({
-  hair: 'brown',
-  height: '6 foot',
-  smart: false
-})
+const barN = {
+  lastName: 'barri'
+}
 
-const sally = createUser({
-  hair: 'blonde',
-  height: '5 foot 4'
-})
+Object.setPrototypeOf(barN, fooN)
 
-console.log(jack.type)
-console.log(jack.smart)
+console.log(barN.name)
 
-console.log(sally.type)
-console.log(sally.smart)
+// This throws an error
+// barN.name = 'lack'
+// console.log(barN.name)
+
+// How to allow setters on prototype
+const fooM = {
+  set name(name) {
+    this.currentName = name
+  }
+}
+
+const barM = {
+  lastName: 'barre'
+}
+
+Object.setPrototypeOf(barM, fooM)
+
+console.log(barM.currentName)
+barM.name = 'knack'
+console.log(barM)
+console.log(barM.currentName)
+barM.currentName = 'sack'
+console.log(barM.currentName)
