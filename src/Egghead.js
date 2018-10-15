@@ -1,18 +1,17 @@
-class Vehicle {
-  isLegal() {
+class Food {
+  static isHealthy() {
     return true
   }
-}
 
-class Car extends Vehicle {
-  canBeUsed() {
-    return this.isLegal()
+  static canBeEaten() {
+    return this.isHealthy()
   }
 }
 
-const myCar = new Car()
+console.log(Food.isHealthy())
+console.log(Food.canBeEaten())
 
-console.log(Object.getPrototypeOf(myCar) === Car.prototype)
-console.log(Object.getPrototypeOf(myCar) === Vehicle.prototype)
-console.log(Object.getPrototypeOf(Car.prototype) === Vehicle.prototype)
-console.log(Vehicle.prototype.isLegal())
+// Same as this:
+function FoodF() {}
+FoodF.isHealthy = () => true
+console.log(FoodF.isHealthy())
