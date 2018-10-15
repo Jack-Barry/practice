@@ -1,25 +1,29 @@
-'use strict'
-
-function Foo(name) {
-  this.name = name
+const obj = {
+  firstName: 'Jack',
+  lastName: 'Barry'
 }
 
-Foo.prototype.myName = function() {
-  return this.name
+const protoObj = {
+  hair: 'Brown',
+  lastName: 'Barri'
 }
 
-function Bar(name) {
-  Foo.call(this, name)
+Object.setPrototypeOf(obj, protoObj)
+
+let m = 0
+let n = 0
+
+for (let prop in obj) {
+  if (obj.hasOwnProperty(prop)) {
+    m++
+  }
+
+  n++
 }
 
-const a = new Foo('Jack')
-const b = new Bar('Back')
+// hasOwnProperty restricts properties to specific object, no looking up the
+// prototype chain
+console.log(m)
 
-console.log(a)
-console.log(b)
-
-Bar.prototype = Object.create(Foo.prototype)
-
-const c = new Bar('Cack')
-
-console.log(c)
+// for loop only iterates over unique properties in the prototype chain
+console.log(n)
