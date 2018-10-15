@@ -1,17 +1,38 @@
-class Food {
-  static isHealthy() {
-    return true
-  }
+function Car(make) {
+  this.make = make
+}
 
-  static canBeEaten() {
-    return this.isHealthy()
+function Boat(engine) {
+  this.engine = engine
+}
+
+Object.setPrototypeOf(Boat.prototype, Car.prototype)
+
+const myBoat = new Boat('Mercury')
+const myCar = new Car('Ford')
+
+// instanceof checks all properties of constructor appear in prototype chain of
+// object.
+console.log(myCar instanceof Car)
+console.log(myBoat instanceof Car)
+
+// Repeating as classes
+class CarC {
+  constructor(make) {
+    this.make = make
   }
 }
 
-console.log(Food.isHealthy())
-console.log(Food.canBeEaten())
+class BoatC {
+  constructor(engine) {
+    this.engine = engine
+  }
+}
 
-// Same as this:
-function FoodF() {}
-FoodF.isHealthy = () => true
-console.log(FoodF.isHealthy())
+Object.setPrototypeOf(BoatC.prototype, CarC.prototype)
+
+const myBoatC = new BoatC('Mercury')
+const myCarC = new CarC('Ford')
+
+console.log(myCarC instanceof CarC)
+console.log(myBoatC instanceof CarC)
