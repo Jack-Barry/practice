@@ -1,54 +1,18 @@
-'use strict'
-
-const foo = {
-  name: 'jack'
+function House(color) {
+  this.color = color
 }
 
-const bar = { lastName: 'barry' }
+const aHouse = new House('white')
+console.log(aHouse.color)
+console.log(aHouse)
 
-Object.setPrototypeOf(bar, foo)
-
-console.log(bar.name)
-
-bar.name = 'back'
-console.log(bar.name)
-
-// How to set read-only properties on a prototype
-const fooN = {}
-
-Object.defineProperty(fooN, 'name', {
-  value: 'crack',
-  writable: false
-})
-
-const barN = {
-  lastName: 'barri'
-}
-
-Object.setPrototypeOf(barN, fooN)
-
-console.log(barN.name)
-
-// This throws an error
-// barN.name = 'lack'
-// console.log(barN.name)
-
-// How to allow setters on prototype
-const fooM = {
-  set name(name) {
-    this.currentName = name
+const house = {
+  set houseColor(color) {
+    this.color = color
   }
 }
 
-const barM = {
-  lastName: 'barre'
-}
+const myHouse = Object.create(house)
 
-Object.setPrototypeOf(barM, fooM)
-
-console.log(barM.currentName)
-barM.name = 'knack'
-console.log(barM)
-console.log(barM.currentName)
-barM.currentName = 'sack'
-console.log(barM.currentName)
+console.log((myHouse.housecolor = 'white'))
+console.log(myHouse)
