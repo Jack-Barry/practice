@@ -46,16 +46,22 @@ describe('Configurator', () => {
           tools: [{ name: 'Some Tool', matcher: 'st' }]
         }
 
-        jest.mock(
-          './fpcli.config.js',
-          () => {
-            return foundConfig
-          },
-          { virtual: true }
-        )
+        beforeEach(() => {
+          jest.mock(
+            './fpcli.config.js',
+            () => {
+              return foundConfig
+            },
+            { virtual: true }
+          )
+        })
+
+        it('keeps the default config in `configs`', () => {
+          expect(configurator.configs).toContainEqual(defaultConfig())
+        })
 
         it('adds the found config into `configs`', () => {
-          expect(configurator.configs).toContain(foundConfig)
+          expect(configurator.configs).toContainEqual(foundConfig)
         })
       })
     })
@@ -91,9 +97,14 @@ describe('Configurator', () => {
           { virtual: true }
         )
 
+        it('keeps the default config in `configs`', () => {
+          configurator = new Configurator({ rootPath: 'path/to/root' })
+          expect(configurator.configs).toContainEqual(defaultConfig())
+        })
+
         it('adds the found config into `configs`', () => {
           configurator = new Configurator({ rootPath: 'path/to/root' })
-          expect(configurator.configs).toContain(foundConfig)
+          expect(configurator.configs).toContainEqual(foundConfig)
         })
       })
     })
