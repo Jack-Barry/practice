@@ -30,7 +30,7 @@ export class Configurator implements IConfigurator {
     this.project_config = this.assignProjectConfig(projectConfigSubPath)
     this.default_config = defaultConfig()
     this.configs = this.buildConfigArray()
-    this.result = { ...this.default_config }
+    this.result = this.buildResult()
   }
 
   private assignRoot(rootPath?: string): string {
@@ -45,7 +45,7 @@ export class Configurator implements IConfigurator {
       : projectConfigSubPath
   }
 
-  private buildConfigArray() {
+  private buildConfigArray(): Array<ConfigObject> {
     let output: Array<ConfigObject> = [this.default_config]
 
     const configModifierPath: string = path.resolve(
@@ -58,6 +58,16 @@ export class Configurator implements IConfigurator {
     } catch (err) {
       // Nothing was found, nothing to do here folks
     }
+
+    return output
+  }
+
+  private buildResult(): ConfigObject {
+    let output: ConfigObject = new ConfigObject()
+
+    this.configs.forEach(c => {
+      output.tools = [...output.tools, ...c.tools]
+    })
 
     return output
   }

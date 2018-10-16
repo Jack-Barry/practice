@@ -20,5 +20,6 @@ export declare class Configurator implements IConfigurator {
     private assignRoot;
     private assignProjectConfig;
     private buildConfigArray;
+    private buildResult;
 }
 export {};
