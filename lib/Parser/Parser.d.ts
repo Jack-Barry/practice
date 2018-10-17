@@ -12,5 +12,6 @@ export declare class Parser implements IParser {
     config: ConfigObject;
     constructor(args?: Array<string>);
     private setConfiguration;
+    private setIfPresent;
 }
 export {};

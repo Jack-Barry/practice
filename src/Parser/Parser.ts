@@ -29,26 +29,27 @@ export class Parser implements IParser {
   }
 
   private setConfiguration() {
-    if (this.args.includes('--config')) {
-      const configValue: string = this.args[this.args.indexOf('--config') + 1]
-      if (configValue !== undefined) {
-        this.configModifierPath = configValue
-      } else {
-        throw Error(
-          'You supplied the `--config` flag but did not provide a value.'
-        )
-      }
-    }
+    this.setIfPresent('--config', 'configModifierPath')
+    this.setIfPresent('--rootPath', 'rootPath', rp => {
+      return path.resolve(rp)
+    })
+  }
 
-    if (this.args.includes('--rootPath')) {
-      const rootPathValue: string = this.args[
-        this.args.indexOf('--rootPath') + 1
-      ]
-      if (rootPathValue !== undefined) {
-        this.rootPath = path.resolve(rootPathValue)
+  private setIfPresent(
+    flag: string,
+    setVal: 'rootPath' | 'configModifierPath',
+    callback: (i: string) => string = i => {
+      return i
+    }
+  ) {
+    if (this.args.includes(flag)) {
+      const val: string = this.args[this.args.indexOf(flag) + 1]
+
+      if (val !== undefined) {
+        this[setVal] = callback(val)
       } else {
         throw Error(
-          'You supplied the `--rootPath` flag but did not provide a value.'
+          `You supplied the ${flag} flag but did not provide a value.`
         )
       }
     }
