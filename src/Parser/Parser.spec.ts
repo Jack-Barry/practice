@@ -1,32 +1,34 @@
 import { Parser } from './Parser'
 import { Paths } from './../globals'
-import { Configurator } from './../Configurator'
+import { Configurator, ConfigObject } from './../Configurator'
 import path from 'path'
 
 describe('Parser', () => {
   const globalPaths: Paths = new Paths()
   let parser: Parser
-  jest.mock('./../Configurator')
 
-  beforeEach(() => {
-    parser = new Parser()
-  })
+  describe('when no arguments are provided', () => {
+    beforeEach(() => {
+      parser = new Parser()
+    })
+    it('has a default rootPath based on values from globals.ts', () => {
+      expect(parser.rootPath).toEqual(globalPaths.callingDir)
+    })
 
-  it('has a default rootPath based on values from globals.ts', () => {
-    expect(parser.rootPath).toEqual(globalPaths.callingDir)
-  })
+    it('has a default configModifierPath based on values from globals.ts', () => {
+      expect(parser.configModifierPath).toEqual(
+        globalPaths.projectConfigSubPath
+      )
+    })
 
-  it('has a default configModifierPath based on values from globals.ts', () => {
-    expect(parser.configModifierPath).toEqual(globalPaths.projectConfigSubPath)
-  })
-
-  it('builds a config based on rootPath and configModifierPath', () => {
-    expect(parser.config).toEqual(
-      new Configurator({
-        rootPath: parser.rootPath,
-        projectConfigSubPath: parser.configModifierPath
-      }).result
-    )
+    it('builds a config based on rootPath and configModifierPath', () => {
+      expect(parser.config).toEqual(
+        new Configurator({
+          rootPath: parser.rootPath,
+          projectConfigSubPath: parser.configModifierPath
+        }).result
+      )
+    })
   })
 
   describe('when the `--config` flag is provided', () => {
@@ -84,4 +86,44 @@ describe('Parser', () => {
       })
     })
   })
+
+  describe('when the config contains only one tool', () => {
+    const foundConfig: ConfigObject = {
+      tools: [{ name: 'Some Tool', matcher: 'st' }]
+    }
+
+    beforeEach(() => {
+      jest.mock(
+        path.resolve(globalPaths.callingDir, globalPaths.projectConfigSubPath),
+        () => {
+          return foundConfig
+        },
+        { virtual: true }
+      )
+    })
+
+    describe('when no tool matcher is provided as the first argument', () => {
+      it('infers the toolToUse correctly', () => {
+        parser = new Parser()
+        expect(parser.toolToUse).toEqual(foundConfig.tools[0])
+      })
+    })
+
+    describe('when a tool matcher is provided as the first argument', () => {
+      describe('when the tool matcher is invalid', () => {
+        expect(() => {
+          new Parser(['s'])
+        }).toThrow()
+      })
+
+      describe('when the tool matcher is valid', () => {
+        it('sets the toolToUse correctly', () => {
+          parser = new Parser(['st'])
+          expect(parser.toolToUse).toEqual(foundConfig.tools[0])
+        })
+      })
+    })
+  })
+
+  xdescribe('when the config contains multiple tools', () => {})
 })

@@ -1,5 +1,5 @@
 import { Paths } from './../globals'
-import { ConfigObject, Configurator } from './../Configurator'
+import { ToolObject, ConfigObject, Configurator } from './../Configurator'
 import path from 'path'
 
 const globalPaths: Paths = new Paths()
@@ -9,6 +9,7 @@ interface IParser {
   rootPath: string
   configModifierPath: string
   config: ConfigObject
+  toolToUse: ToolObject
 }
 
 export class Parser implements IParser {
@@ -16,19 +17,18 @@ export class Parser implements IParser {
   rootPath: string
   configModifierPath: string
   config: ConfigObject
+  toolToUse: ToolObject
 
   constructor(args: Array<string> = []) {
     this.args = args
     this.rootPath = globalPaths.callingDir
     this.configModifierPath = globalPaths.projectConfigSubPath
-    this.setConfiguration()
-    this.config = new Configurator({
-      rootPath: this.rootPath,
-      projectConfigSubPath: this.configModifierPath
-    }).result
+    this.setConfigurationPath()
+    this.config = this.setConfig()
+    this.toolToUse = this.setTool()
   }
 
-  private setConfiguration() {
+  private setConfigurationPath() {
     this.setIfPresent('--config', 'configModifierPath')
     this.setIfPresent('--rootPath', 'rootPath', rp => {
       return path.resolve(rp)
@@ -53,5 +53,29 @@ export class Parser implements IParser {
         )
       }
     }
+  }
+
+  private setConfig(): ConfigObject {
+    return new Configurator({
+      rootPath: this.rootPath,
+      projectConfigSubPath: this.configModifierPath
+    }).result
+  }
+
+  private setTool(): ToolObject {
+    const tools = this.config.tools
+    const toolMatchers: Array<string> = tools.map(t => {
+      return t.matcher
+    })
+    const firstArg = this.args[0]
+
+    if (/^[a-zA-Z0-9]$/.test(firstArg) && !toolMatchers.includes(firstArg)) {
+      throw Error(
+        'You need to include a valid tool matcher. Choose from: \n' +
+          toolMatchers.join(', ')
+      )
+    }
+
+    return this.config.tools[0]
   }
 }
