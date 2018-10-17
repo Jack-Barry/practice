@@ -30,46 +30,58 @@ describe('Parser', () => {
   })
 
   describe('when the `--config` flag is provided', () => {
-    it('requires a path to be given', () => {
-      expect(() => {
-        new Parser(['--config'])
-      }).toThrow()
+    describe('when a value is not provided', () => {
+      it('throws an error', () => {
+        expect(() => {
+          new Parser(['--config'])
+        }).toThrow()
+      })
     })
 
-    it('sets the configModifierPath as expected', () => {
-      parser = new Parser(['--config', 'somefile.js'])
-      expect(parser.configModifierPath).toEqual('somefile.js')
-    })
+    describe('when a value is provided', () => {
+      beforeEach(() => {
+        parser = new Parser(['--config', 'somefile.js'])
+      })
 
-    it('builds a config based on rootPath and configModifierPath', () => {
-      parser = new Parser(['--config', 'somefile.js'])
-      expect(parser.config).toEqual(
-        new Configurator({
-          projectConfigSubPath: 'somefile.js'
-        }).result
-      )
+      it('sets the configModifierPath as expected', () => {
+        expect(parser.configModifierPath).toEqual('somefile.js')
+      })
+
+      it('builds a config based on rootPath and configModifierPath', () => {
+        expect(parser.config).toEqual(
+          new Configurator({
+            projectConfigSubPath: 'somefile.js'
+          }).result
+        )
+      })
     })
   })
 
   describe('when the `--rootPath` flag is provided', () => {
-    it('requires a path to be given', () => {
-      expect(() => {
-        new Parser(['--rootPath'])
-      }).toThrow()
+    describe('when a value is not provided', () => {
+      it('throws an error', () => {
+        expect(() => {
+          new Parser(['--rootPath'])
+        }).toThrow()
+      })
     })
 
-    it('sets the configModifierPath as expected', () => {
-      parser = new Parser(['--rootPath', 'some/dir'])
-      expect(parser.rootPath).toEqual(path.resolve('some/dir'))
-    })
+    describe('when a value is provided', () => {
+      beforeEach(() => {
+        parser = new Parser(['--rootPath', 'some/dir'])
+      })
 
-    it('builds a config based on rootPath and configModifierPath', () => {
-      parser = new Parser(['--rootPath', 'some/dir'])
-      expect(parser.config).toEqual(
-        new Configurator({
-          rootPath: path.resolve('some/dir')
-        }).result
-      )
+      it('sets the configModifierPath as expected', () => {
+        expect(parser.rootPath).toEqual(path.resolve('some/dir'))
+      })
+
+      it('builds a config based on rootPath and configModifierPath', () => {
+        expect(parser.config).toEqual(
+          new Configurator({
+            rootPath: path.resolve('some/dir')
+          }).result
+        )
+      })
     })
   })
 })
