@@ -11,5 +11,6 @@ export declare class Parser implements IParser {
     configModifierPath: string;
     config: ConfigObject;
     constructor(args?: Array<string>);
+    private setConfiguration;
 }
 export {};
