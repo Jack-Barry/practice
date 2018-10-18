@@ -15,6 +15,7 @@ describe('Parser', () => {
     beforeEach(() => {
       parser = new Parser()
     })
+
     it('has a default rootPath based on values from globals.ts', () => {
       expect(parser.rootPath).toEqual(globalPaths.callingDir)
     })
@@ -169,5 +170,51 @@ describe('Parser', () => {
         })
       })
     })
+  })
+
+  describe('when a tool provides flags', () => {
+    describe('when a flag is for a `boolean`', () => {
+      const foundConfig: ConfigObject = {
+        tools: [
+          {
+            name: 'Some Tool',
+            matcher: 'st',
+            flags: [
+              { name: 'Boolean', matchers: ['-b', '-boolean'], type: 'boolean' }
+            ]
+          }
+        ]
+      }
+
+      beforeEach(() => {
+        jest.mock(
+          path.resolve(
+            globalPaths.callingDir,
+            globalPaths.projectConfigSubPath
+          ),
+          () => {
+            return foundConfig
+          },
+          { virtual: true }
+        )
+      })
+
+      it('returns an object with the flag set to false if not present', () => {
+        parser = new Parser()
+        expect(parser.output).toMatchObject({ Boolean: false })
+      })
+
+      it('returns an object with the flag set to true if present', () => {
+        parser = new Parser(['-b'])
+        expect(parser.output).toMatchObject({ Boolean: true })
+
+        parser = new Parser(['-boolean'])
+        expect(parser.output).toMatchObject({ Boolean: true })
+      })
+    })
+
+    xdescribe('when a flag is for a `string`', () => {})
+
+    xdescribe('when a flag is for a `array`', () => {})
   })
 })

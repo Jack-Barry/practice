@@ -1,5 +1,10 @@
 import { Paths } from './../globals'
-import { ToolObject, ConfigObject, Configurator } from './../Configurator'
+import {
+  ToolObject,
+  FlagObject,
+  ConfigObject,
+  Configurator
+} from './../Configurator'
 import path from 'path'
 
 const globalPaths: Paths = new Paths()
@@ -10,6 +15,11 @@ interface IParser {
   configModifierPath: string
   config: ConfigObject
   toolToUse: ToolObject
+  output: IParserOutput
+}
+
+interface IParserOutput {
+  [key: string]: string | boolean | Array<string> | null
 }
 
 export class Parser implements IParser {
@@ -18,6 +28,7 @@ export class Parser implements IParser {
   configModifierPath: string
   config: ConfigObject
   toolToUse: ToolObject
+  output: IParserOutput
 
   constructor(args: Array<string> = []) {
     this.args = args
@@ -26,6 +37,7 @@ export class Parser implements IParser {
     this.setConfigurationPath()
     this.config = this.setConfig()
     this.toolToUse = this.setTool()
+    this.output = this.setOutput()
   }
 
   private setConfigurationPath() {
@@ -81,5 +93,28 @@ export class Parser implements IParser {
     }
 
     return tools[toolMatchers.indexOf(firstArg)] || tools[0]
+  }
+
+  private setOutput() {
+    let output: IParserOutput = {}
+
+    if (this.toolToUse !== undefined && this.toolToUse.flags !== undefined) {
+      const flags: Array<FlagObject> = this.toolToUse.flags
+      const args: Array<string> = this.args
+
+      flags.forEach(f => {
+        switch (f.type) {
+          case 'boolean':
+            output[f.name] = args.some(a => {
+              return (f.matchers || []).includes(a)
+            })
+            break
+          default:
+            output[f.name] = null
+        }
+      })
+    }
+
+    return output
   }
 }
