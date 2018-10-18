@@ -202,7 +202,46 @@ describe('Parser', () => {
       })
     })
 
-    xdescribe('when a flag is for a `string`', () => {})
+    describe('when a flag is for a `string`', () => {
+      const foundConfig: ConfigObject = {
+        tools: [
+          {
+            name: 'Some Tool',
+            matcher: 'st',
+            flags: [
+              { name: 'String', matchers: ['-s', '-string'], type: 'string' }
+            ]
+          }
+        ]
+      }
+
+      beforeEach(() => {
+        setConfig(foundConfig)
+      })
+
+      it('returns an object with the flag set to an empty string if not present', () => {
+        parser = new Parser()
+        expect(parser.output).toMatchObject({ String: '' })
+      })
+
+      describe('when a value for the string is not provided', () => {
+        it('throws an error', () => {
+          expect(() => {
+            new Parser(['-s'])
+          }).toThrow()
+        })
+      })
+
+      describe('when a value for the string is provided', () => {
+        it('returns an object with the flag set to provided string', () => {
+          parser = new Parser(['-s', 'something'])
+          expect(parser.output).toMatchObject({ String: 'something' })
+
+          parser = new Parser(['-b', '-string', 'something else'])
+          expect(parser.output).toMatchObject({ String: 'something else' })
+        })
+      })
+    })
 
     xdescribe('when a flag is for a `array`', () => {})
   })

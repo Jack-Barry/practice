@@ -8,7 +8,7 @@ interface IParser {
     output: IParserOutput;
 }
 interface IParserOutput {
-    [key: string]: string | boolean | Array<string> | null;
+    [key: string]: string | boolean | Array<string>;
 }
 export declare class Parser implements IParser {
     args: Array<string>;
@@ -23,5 +23,7 @@ export declare class Parser implements IParser {
     private setConfig;
     private setTool;
     private setOutput;
+    private flagInArgs;
+    private getMatchingIndex;
 }
 export {};

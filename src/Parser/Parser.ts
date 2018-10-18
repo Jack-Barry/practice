@@ -19,7 +19,7 @@ interface IParser {
 }
 
 interface IParserOutput {
-  [key: string]: string | boolean | Array<string> | null
+  [key: string]: string | boolean | Array<string>
 }
 
 export class Parser implements IParser {
@@ -105,14 +105,52 @@ export class Parser implements IParser {
       flags.forEach(f => {
         switch (f.type) {
           case 'boolean':
-            output[f.name] = args.some(a => {
-              return f.matchers.includes(a)
-            })
+            output[f.name] = this.flagInArgs(f, args)
+            break
+          case 'string':
+            let argValue: string = ''
+
+            if (this.flagInArgs(f, args)) {
+              const argIndex: number | undefined = this.getMatchingIndex(
+                f,
+                args
+              )
+
+              if (argIndex !== undefined) {
+                argValue = args[argIndex + 1]
+
+                if (argValue === undefined)
+                  throw Error(
+                    `You need to provide a value for the ${f.name} flag.`
+                  )
+              }
+            }
+
+            output[f.name] = argValue
             break
         }
       })
     }
 
     return output
+  }
+  private flagInArgs(flag: FlagObject, args: Array<string>): boolean {
+    return args.some(a => {
+      return flag.matchers.includes(a)
+    })
+  }
+
+  private getMatchingIndex(flag: FlagObject, args: Array<string>) {
+    let argIndex: number | undefined
+
+    const matchingArg = args.find(a => {
+      return flag.matchers.includes(a)
+    })
+
+    if (matchingArg !== undefined) {
+      argIndex = args.indexOf(matchingArg)
+    }
+
+    return argIndex
   }
 }
