@@ -63,24 +63,23 @@ export class Parser implements IParser {
   }
 
   private setTool(): ToolObject {
-    const tools = this.config.tools
+    const tools: Array<ToolObject> = this.config.tools
     const toolMatchers: Array<string> = tools.map(t => {
       return t.matcher
     })
-    const firstArg = this.args[0]
+    const firstArg: string = this.args[0]
 
     if (
-      (tools.length > 1 && firstArg === undefined) ||
-      (/^[a-zA-Z0-9]$/.test(firstArg) && !toolMatchers.includes(firstArg))
+      (/^[a-zA-Z0-9]$/.test(firstArg) && !toolMatchers.includes(firstArg)) ||
+      (tools.length > 1 && firstArg === undefined)
     ) {
       throw Error(
-        'You need to include a valid tool matcher. Choose from: \n' +
-          toolMatchers.join(', ')
+        `You need to provide a valid tool matcher. Valid tool matchers include: ${toolMatchers.join(
+          '\n'
+        )}`
       )
-    } else if (tools.length === 1) {
-      return tools[0]
     }
 
-    return tools[toolMatchers.indexOf(firstArg)]
+    return tools[toolMatchers.indexOf(firstArg)] || tools[0]
   }
 }
