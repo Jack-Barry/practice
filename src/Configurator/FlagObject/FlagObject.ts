@@ -4,14 +4,14 @@ interface IFlagObject {
   name: string
   description?: string
   type?: FlagType
-  matchers?: Array<string>
+  matchers: Array<string>
 }
 
 export class FlagObject implements IFlagObject {
   name: string
   description?: string
   type?: FlagType
-  matchers?: Array<string>
+  matchers: Array<string>
 
   constructor(flag: IFlagObject) {
     this.name = flag.name

@@ -106,11 +106,9 @@ export class Parser implements IParser {
         switch (f.type) {
           case 'boolean':
             output[f.name] = args.some(a => {
-              return (f.matchers || []).includes(a)
+              return f.matchers.includes(a)
             })
             break
-          default:
-            output[f.name] = null
         }
       })
     }
