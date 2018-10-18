@@ -69,13 +69,18 @@ export class Parser implements IParser {
     })
     const firstArg = this.args[0]
 
-    if (/^[a-zA-Z0-9]$/.test(firstArg) && !toolMatchers.includes(firstArg)) {
+    if (
+      (tools.length > 1 && firstArg === undefined) ||
+      (/^[a-zA-Z0-9]$/.test(firstArg) && !toolMatchers.includes(firstArg))
+    ) {
       throw Error(
         'You need to include a valid tool matcher. Choose from: \n' +
           toolMatchers.join(', ')
       )
+    } else if (tools.length === 1) {
+      return tools[0]
     }
 
-    return this.config.tools[0]
+    return tools[toolMatchers.indexOf(firstArg)]
   }
 }

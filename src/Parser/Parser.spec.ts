@@ -7,6 +7,10 @@ describe('Parser', () => {
   const globalPaths: Paths = new Paths()
   let parser: Parser
 
+  afterEach(() => {
+    jest.resetModules()
+  })
+
   describe('when no arguments are provided', () => {
     beforeEach(() => {
       parser = new Parser()
@@ -125,5 +129,45 @@ describe('Parser', () => {
     })
   })
 
-  xdescribe('when the config contains multiple tools', () => {})
+  describe('when the config contains multiple tools', () => {
+    const foundConfig: ConfigObject = {
+      tools: [
+        { name: 'Some Tool', matcher: 'st' },
+        { name: 'Another Tool', matcher: 'at' }
+      ]
+    }
+
+    beforeEach(() => {
+      jest.mock(
+        path.resolve(globalPaths.callingDir, globalPaths.projectConfigSubPath),
+        () => {
+          return foundConfig
+        },
+        { virtual: true }
+      )
+    })
+
+    describe('when no tool matcher is provided as the first argument', () => {
+      it('throws an error', () => {
+        expect(() => {
+          new Parser()
+        }).toThrow()
+      })
+    })
+
+    describe('when a tool matcher is provided as the first argument', () => {
+      describe('when the tool matcher is invalid', () => {
+        expect(() => {
+          new Parser(['s'])
+        }).toThrow()
+      })
+
+      describe('when the tool matcher is valid', () => {
+        it('sets the toolToUse correctly', () => {
+          parser = new Parser(['at'])
+          expect(parser.toolToUse).toEqual(foundConfig.tools[1])
+        })
+      })
+    })
+  })
 })
