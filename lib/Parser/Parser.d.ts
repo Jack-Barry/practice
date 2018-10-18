@@ -23,7 +23,6 @@ export declare class Parser implements IParser {
     private setConfig;
     private setTool;
     private setOutput;
-    private flagInArgs;
-    private getMatchingIndex;
+    private setDefaultOutput;
 }
 export {};

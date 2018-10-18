@@ -96,61 +96,54 @@ export class Parser implements IParser {
   }
 
   private setOutput() {
-    let output: IParserOutput = {}
+    let output: IParserOutput = this.setDefaultOutput()
 
-    if (this.toolToUse !== undefined && this.toolToUse.flags !== undefined) {
-      const flags: Array<FlagObject> = this.toolToUse.flags
-      const args: Array<string> = this.args
+    if (Object.keys(output).length !== 0) {
+      const flags = this.toolToUse.flags || []
+      const args = this.args
 
-      flags.forEach(f => {
-        switch (f.type) {
-          case 'boolean':
-            output[f.name] = this.flagInArgs(f, args)
-            break
-          case 'string':
-            let argValue: string = ''
+      args.forEach((a, i) => {
+        const flag = flags.find(f => f.matchers.includes(a))
 
-            if (this.flagInArgs(f, args)) {
-              const argIndex: number | undefined = this.getMatchingIndex(
-                f,
-                args
-              )
-
-              if (argIndex !== undefined) {
-                argValue = args[argIndex + 1]
-
-                if (argValue === undefined)
-                  throw Error(
-                    `You need to provide a value for the ${f.name} flag.`
-                  )
+        if (flag !== undefined) {
+          switch (flag.type) {
+            case 'boolean':
+              output[flag.name] = true
+              break
+            case 'string':
+              const val = args[i + 1]
+              if (val !== undefined) {
+                output[flag.name] = val
+                break
+              } else {
+                throw Error(
+                  `You need to provide a value for the ${flag.name} flag.`
+                )
               }
-            }
-
-            output[f.name] = argValue
-            break
+          }
         }
       })
     }
 
     return output
   }
-  private flagInArgs(flag: FlagObject, args: Array<string>): boolean {
-    return args.some(a => {
-      return flag.matchers.includes(a)
-    })
-  }
 
-  private getMatchingIndex(flag: FlagObject, args: Array<string>) {
-    let argIndex: number | undefined
+  private setDefaultOutput(): IParserOutput {
+    let output: IParserOutput = {}
 
-    const matchingArg = args.find(a => {
-      return flag.matchers.includes(a)
-    })
-
-    if (matchingArg !== undefined) {
-      argIndex = args.indexOf(matchingArg)
+    if (this.toolToUse !== undefined && this.toolToUse.flags !== undefined) {
+      this.toolToUse.flags.forEach(f => {
+        switch (f.type) {
+          case 'boolean':
+            output[f.name] = false
+            break
+          case 'string':
+            output[f.name] = ''
+            break
+        }
+      })
     }
 
-    return argIndex
+    return output
   }
 }

@@ -170,6 +170,26 @@ describe('Parser', () => {
     })
   })
 
+  describe('when a tool has no flags', () => {
+    const foundConfig: ConfigObject = {
+      tools: [
+        {
+          name: 'Some Tool',
+          matcher: 'st'
+        }
+      ]
+    }
+
+    beforeEach(() => {
+      setConfig(foundConfig)
+    })
+
+    it('returns an empty object', () => {
+      parser = new Parser(['st'])
+      expect(parser.output).toMatchObject({})
+    })
+  })
+
   describe('when a tool provides flags', () => {
     describe('when a flag is for a `boolean`', () => {
       const foundConfig: ConfigObject = {
