@@ -7,6 +7,16 @@ describe('Parser', () => {
   const globalPaths: Paths = new Paths()
   let parser: Parser
 
+  const setConfig = (config: ConfigObject) => {
+    jest.mock(
+      path.resolve(globalPaths.callingDir, globalPaths.projectConfigSubPath),
+      () => {
+        return config
+      },
+      { virtual: true }
+    )
+  }
+
   afterEach(() => {
     jest.resetModules()
   })
@@ -98,13 +108,7 @@ describe('Parser', () => {
     }
 
     beforeEach(() => {
-      jest.mock(
-        path.resolve(globalPaths.callingDir, globalPaths.projectConfigSubPath),
-        () => {
-          return foundConfig
-        },
-        { virtual: true }
-      )
+      setConfig(foundConfig)
     })
 
     describe('when no tool matcher is provided as the first argument', () => {
@@ -139,13 +143,7 @@ describe('Parser', () => {
     }
 
     beforeEach(() => {
-      jest.mock(
-        path.resolve(globalPaths.callingDir, globalPaths.projectConfigSubPath),
-        () => {
-          return foundConfig
-        },
-        { virtual: true }
-      )
+      setConfig(foundConfig)
     })
 
     describe('when no tool matcher is provided as the first argument', () => {
@@ -187,16 +185,7 @@ describe('Parser', () => {
       }
 
       beforeEach(() => {
-        jest.mock(
-          path.resolve(
-            globalPaths.callingDir,
-            globalPaths.projectConfigSubPath
-          ),
-          () => {
-            return foundConfig
-          },
-          { virtual: true }
-        )
+        setConfig(foundConfig)
       })
 
       it('returns an object with the flag set to false if not present', () => {
