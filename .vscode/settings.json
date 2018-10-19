@@ -1,3 +1,6 @@
 {
-  "tslint.configFile": "./config/tslint.json"
+  "tslint.configFile": "./config/tslint.json",
+  "files.exclude": {
+    "lib": true
+  }
 }
