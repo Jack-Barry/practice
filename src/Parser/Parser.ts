@@ -99,7 +99,7 @@ export class Parser implements IParser {
     let output: IParserOutput = this.setDefaultOutput()
 
     if (Object.keys(output).length !== 0) {
-      const flags = this.toolToUse.flags || []
+      const flags = this.toolToUse.flags
       const args = this.args
 
       args.forEach((a, i) => {
