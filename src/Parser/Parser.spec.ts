@@ -120,9 +120,11 @@ describe('Parser', () => {
 
     describe('when a tool matcher is provided as the first argument', () => {
       describe('when the tool matcher is invalid', () => {
-        expect(() => {
-          new Parser(['s'])
-        }).toThrow()
+        it('throws an error', () => {
+          expect(() => {
+            new Parser(['s'])
+          }).toThrow()
+        })
       })
 
       describe('when the tool matcher is valid', () => {
@@ -156,9 +158,11 @@ describe('Parser', () => {
 
     describe('when a tool matcher is provided as the first argument', () => {
       describe('when the tool matcher is invalid', () => {
-        expect(() => {
-          new Parser(['s'])
-        }).toThrow()
+        it('throws an error', () => {
+          expect(() => {
+            new Parser(['s'])
+          }).toThrow()
+        })
       })
 
       describe('when the tool matcher is valid', () => {
