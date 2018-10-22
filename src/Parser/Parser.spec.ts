@@ -104,7 +104,7 @@ describe('Parser', () => {
 
   describe('when the config contains only one tool', () => {
     const foundConfig: ConfigObject = {
-      tools: [{ name: 'Some Tool', matcher: 'st' }]
+      tools: [{ name: 'Some Tool', matcher: 'st', flags: [] }]
     }
 
     beforeEach(() => {
@@ -137,8 +137,8 @@ describe('Parser', () => {
   describe('when the config contains multiple tools', () => {
     const foundConfig: ConfigObject = {
       tools: [
-        { name: 'Some Tool', matcher: 'st' },
-        { name: 'Another Tool', matcher: 'at' }
+        { name: 'Some Tool', matcher: 'st', flags: [] },
+        { name: 'Another Tool', matcher: 'at', flags: [] }
       ]
     }
 
@@ -175,7 +175,8 @@ describe('Parser', () => {
       tools: [
         {
           name: 'Some Tool',
-          matcher: 'st'
+          matcher: 'st',
+          flags: []
         }
       ]
     }
