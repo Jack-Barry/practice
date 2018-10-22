@@ -268,6 +268,51 @@ describe('Parser', () => {
       })
     })
 
-    xdescribe('when a flag is for a `array`', () => {})
+    describe('when a flag is for an `array`', () => {
+      const foundConfig: ConfigObject = {
+        tools: [
+          {
+            name: 'Some Array Tool',
+            matcher: 'sat',
+            flags: [
+              { name: 'Array', matchers: ['-a', '-array'], type: 'array' }
+            ]
+          }
+        ]
+      }
+
+      beforeEach(() => {
+        setConfig(foundConfig)
+      })
+
+      it('returns an object with the flag set to an empty array if not present', () => {
+        parser = new Parser()
+        expect(parser.output).toMatchObject({ Array: [] })
+      })
+
+      describe('when a value for the array is not provided', () => {
+        it('throws an error', () => {
+          expect(() => {
+            new Parser(['-a'])
+          }).toThrow()
+
+          expect(() => {
+            new Parser(['-a', '-array'])
+          }).toThrow()
+        })
+      })
+
+      describe('when a value for the array is provided', () => {
+        it('returns an object with the flag set to provided array of strings', () => {
+          parser = new Parser(['-a', 'some', 'things'])
+          expect(parser.output).toMatchObject({ Array: ['some', 'things'] })
+
+          parser = new Parser(['-b', '-array', 'some', 'other', 'things'])
+          expect(parser.output).toMatchObject({
+            Array: ['some', 'other', 'things']
+          })
+        })
+      })
+    })
   })
 })

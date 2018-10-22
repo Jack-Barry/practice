@@ -140,6 +140,9 @@ export class Parser implements IParser {
           case 'string':
             output[f.name] = ''
             break
+          case 'array':
+            output[f.name] = []
+            break
         }
       })
     }
