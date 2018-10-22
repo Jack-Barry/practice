@@ -1,7 +1,8 @@
 import { ProxCard } from './../ProxCard';
-interface IMatchObject {
+export interface IMatchObject {
     facID: number;
     idBitCount: number;
+    supported: boolean;
 }
 interface IInterpreter {
     matches: IMatchObject[];

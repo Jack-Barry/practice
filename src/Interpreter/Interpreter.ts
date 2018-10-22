@@ -1,8 +1,9 @@
 import { ProxCard } from './../ProxCard'
 
-interface IMatchObject {
+export interface IMatchObject {
   facID: number
   idBitCount: number
+  supported: boolean
 }
 
 interface IInterpreter {
@@ -27,9 +28,12 @@ export class Interpreter implements IInterpreter {
       let endOfHex: string = hexBits.substring(begOfHex.length)
 
       if (endOfHex.replace(/^0+/, '') === idBits) {
+        const supportedBitCounts: number[] = [16, 19, 20, 24, 27, 29, 32]
+
         matches.push({
           facID: parseInt(begOfHex, 2),
-          idBitCount: endOfHex.length
+          idBitCount: endOfHex.length,
+          supported: supportedBitCounts.includes(endOfHex.length)
         })
 
         facIDBits--
