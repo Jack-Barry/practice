@@ -108,11 +108,19 @@ export class Parser implements IParser {
         if (flag !== undefined) {
           switch (flag.type) {
             case 'boolean':
+              const nextArg = args[i + 1]
+              if (nextArg !== undefined && !/^-.+/.test(nextArg)) {
+                throw Error(
+                  `You provided a value for the ${
+                    flag.name
+                  } flag, but it is a boolean flag.`
+                )
+              }
               output[flag.name] = true
               break
             case 'string':
               const val = args[i + 1]
-              if (val !== undefined) {
+              if (val !== undefined && !/^-.+/.test(val)) {
                 output[flag.name] = val
                 break
               } else {
@@ -129,7 +137,7 @@ export class Parser implements IParser {
                   ? possibleArgs.length
                   : possibleArgs.indexOf(nextFlag)
               const vals: string[] = possibleArgs.slice(0, nextFlagIndex)
-              if (vals !== []) {
+              if (vals.length > 0) {
                 output[flag.name] = vals
                 break
               } else {

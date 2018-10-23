@@ -4,7 +4,7 @@ let flagInput: FlagObject
 let gFlag: FlagObject
 
 beforeEach(() => {
-  flagInput = { name: 'A Flag' }
+  flagInput = new FlagObject({ name: 'A Flag', matchers: [] })
   gFlag = new FlagObject(flagInput)
 })
 

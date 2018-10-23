@@ -1,18 +1,15 @@
 import { ToolObject } from './ToolObject'
+import { FlagObject } from './../FlagObject'
 
 let toolInput: ToolObject
 let gTool: ToolObject
 
 beforeEach(() => {
-  toolInput = { matcher: 'g', name: 'Generator' }
+  toolInput = { matcher: 'g', name: 'Generator', flags: [] }
   gTool = new ToolObject(toolInput)
 })
 
 describe('ToolObject', () => {
-  it('initializes with `flags` set to an empty array', () => {
-    expect(gTool.flags).toEqual([])
-  })
-
   it('initializes with `description` set to the name if not provided', () => {
     expect(gTool.description).toEqual('Generator')
   })
@@ -30,10 +27,13 @@ describe('ToolObject', () => {
   })
 
   it('returns a tool if the input is valid', () => {
-    const input = {
+    const input: ToolObject = {
       ...toolInput,
       description: 'A description',
-      flags: [{ name: 'A flag' }, { name: 'Another flag' }]
+      flags: [
+        new FlagObject({ name: 'A flag', matchers: [] }),
+        new FlagObject({ name: 'Another flag', matchers: [] })
+      ]
     }
 
     const validTool = new ToolObject(input)

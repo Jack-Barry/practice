@@ -11,5 +11,6 @@ export declare class FlagObject implements IFlagObject {
     type?: FlagType;
     matchers: Array<string>;
     constructor(flag: IFlagObject);
+    private setMatchers;
 }
 export {};

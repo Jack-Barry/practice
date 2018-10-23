@@ -17,8 +17,12 @@ export class FlagObject implements IFlagObject {
     this.name = flag.name
     this.description = flag.description || this.name
     this.type = flag.type || 'string'
-    this.matchers = flag.matchers || [
-      this.name.toLowerCase().replace(new RegExp(/\s/, 'g'), '-')
-    ]
+    this.matchers = this.setMatchers(flag.matchers)
+  }
+
+  private setMatchers(matchers: string[]): string[] {
+    return matchers.length === 0
+      ? [this.name.toLowerCase().replace(new RegExp(/\s/, 'g'), '-')]
+      : matchers
   }
 }

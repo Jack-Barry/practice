@@ -1,6 +1,6 @@
 import { Parser } from './Parser'
 import { Paths } from './../globals'
-import { Configurator, ConfigObject } from './../Configurator'
+import { Configurator, ConfigObject, FlagObject } from './../Configurator'
 import path from 'path'
 
 describe('Parser', () => {
@@ -203,7 +203,11 @@ describe('Parser', () => {
             name: 'Some Tool',
             matcher: 'st',
             flags: [
-              { name: 'Boolean', matchers: ['-b', '-boolean'], type: 'boolean' }
+              new FlagObject({
+                name: 'Boolean',
+                matchers: ['-b', '-boolean'],
+                type: 'boolean'
+              })
             ]
           }
         ]
@@ -234,7 +238,11 @@ describe('Parser', () => {
             name: 'Some Tool',
             matcher: 'st',
             flags: [
-              { name: 'String', matchers: ['-s', '-string'], type: 'string' }
+              new FlagObject({
+                name: 'String',
+                matchers: ['-s', '-string'],
+                type: 'string'
+              })
             ]
           }
         ]
@@ -275,7 +283,11 @@ describe('Parser', () => {
             name: 'Some Array Tool',
             matcher: 'sat',
             flags: [
-              { name: 'Array', matchers: ['-a', '-array'], type: 'array' }
+              new FlagObject({
+                name: 'Array',
+                matchers: ['-a', '-array'],
+                type: 'array'
+              })
             ]
           }
         ]
@@ -312,6 +324,81 @@ describe('Parser', () => {
             Array: ['some', 'other', 'things']
           })
         })
+      })
+    })
+
+    describe('when flags are mixed and matched', () => {
+      let foundConfig: ConfigObject = {
+        tools: [
+          {
+            name: 'Some Tool',
+            matcher: 'st',
+            flags: [
+              new FlagObject({
+                name: 'Array',
+                matchers: ['-a', '-array'],
+                type: 'array'
+              }),
+              new FlagObject({
+                name: 'String',
+                matchers: ['-s', '-string']
+              }),
+              new FlagObject({
+                name: 'Boolean',
+                matchers: ['-b', '-boolean'],
+                type: 'boolean'
+              })
+            ]
+          }
+        ]
+      }
+
+      beforeEach(() => {
+        setConfig(foundConfig)
+      })
+
+      it('properly handles the mixed flags', () => {
+        parser = new Parser(['-a', 'some', 'things', '-b', '-s', 'a string'])
+        let expectedOutput = {
+          Array: ['some', 'things'],
+          Boolean: true,
+          String: 'a string'
+        }
+        expect(parser.output).toMatchObject(expectedOutput)
+
+        parser = new Parser([
+          '-string',
+          'a string',
+          '-boolean',
+          '-array',
+          'some',
+          'things'
+        ])
+        expect(parser.output).toMatchObject(expectedOutput)
+
+        parser = new Parser([
+          '-b',
+          '-string',
+          'a string',
+          '-array',
+          'some',
+          'things'
+        ])
+        expect(parser.output).toMatchObject(expectedOutput)
+      })
+
+      it('throws errors when expected', () => {
+        expect(() => {
+          new Parser(['-b', '-string', '-array', 'some', 'things'])
+        }).toThrow()
+
+        expect(() => {
+          new Parser(['-b', '-string', 'a string', '-array'])
+        }).toThrow()
+
+        expect(() => {
+          new Parser(['-b', 'a string', '-array', 'some', 'things'])
+        }).toThrow()
       })
     })
   })
