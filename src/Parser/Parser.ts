@@ -120,6 +120,23 @@ export class Parser implements IParser {
                   `You need to provide a value for the ${flag.name} flag.`
                 )
               }
+            case 'array':
+              const possibleArgs: string[] = args.slice(i + 1)
+              const nextFlag: string =
+                possibleArgs.find(a => /^-.+/.test(a)) || ''
+              const nextFlagIndex =
+                nextFlag === ''
+                  ? possibleArgs.length
+                  : possibleArgs.indexOf(nextFlag)
+              const vals: string[] = possibleArgs.slice(0, nextFlagIndex)
+              if (vals !== []) {
+                output[flag.name] = vals
+                break
+              } else {
+                throw Error(
+                  `You need to provide a value for the ${flag.name} flag.`
+                )
+              }
           }
         }
       })
