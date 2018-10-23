@@ -1,10 +1,5 @@
 import { Paths } from './../globals'
-import {
-  ToolObject,
-  FlagObject,
-  ConfigObject,
-  Configurator
-} from './../Configurator'
+import { ToolObject, ConfigObject, Configurator } from './../Configurator'
 import path from 'path'
 
 const globalPaths: Paths = new Paths()

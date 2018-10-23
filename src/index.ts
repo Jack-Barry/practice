@@ -1,6 +1,6 @@
 import { jsonify } from './globals'
-import { Configurator } from './Configurator'
+import { Parser } from './Parser'
 
-const configurator: Configurator = new Configurator({})
+const parser: Parser = new Parser(process.argv.slice(2))
 
-console.log(jsonify(configurator))
+console.log(jsonify(parser.output))
