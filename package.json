@@ -1,6 +1,6 @@
 {
   "name": "practice",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A place to practice JS without mucking up real projects",
   "main": "index.js",
   "private": true,
