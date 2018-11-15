@@ -1,7 +1,10 @@
 module.exports = {
   bail: true,
   clearMocks: true,
-  collectCoverageFrom: ['<rootDir>/src/*/**/*.(ts)', '!**/node_modules/**'],
+  collectCoverageFrom: [
+    '<rootDir>/src/*/**/!(index)*.(ts)',
+    '!**/node_modules/**'
+  ],
   coverageDirectory: 'coverage',
   globals: {
     'ts-jest': {
