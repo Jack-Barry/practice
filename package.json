@@ -3,6 +3,7 @@
   "version": "0.0.2",
   "description": "A place to practice JS without mucking up real projects",
   "main": "index.js",
+  "types": "lib/index.d.ts",
   "private": true,
   "keywords": [],
   "author": "Jack Barry",
