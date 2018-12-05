@@ -1,19 +1,22 @@
 {
   "name": "practice",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A place to practice JS without mucking up real projects",
-  "main": "index.js",
+  "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "private": true,
   "keywords": [],
   "author": "Jack Barry",
   "license": "MIT",
   "scripts": {
-    "build:types": "tsc -p config/tsconfig.json",
-    "build:js": "babel --config-file ./config/babel.config.js src --out-dir lib --extensions \".ts,.tsx\" --source-maps inline",
-    "build": "npm run build:types && npm run build:js",
+    "clean:lib": "shx rm -rf lib/*",
+    "tsc": "tsc -p config/tsconfig.json",
+    "build:types": "npm run tsc -- --watch",
+    "babel": "babel --config-file ./config/babel.config.js src --out-dir lib --extensions \".ts,.tsx\" --source-maps inline",
+    "build:js": "npm run babel -- --watch",
+    "build": "npm run clean:lib && npm run build:types && npm run build:js",
     "jest": "jest --config=config/jest.config.js --coverage",
-    "clean:lib": "shx rm -rf lib/*"
+    "tdd": "npm run jest -- --watch"
   },
   "prettier": {
     "singleQuote": true,

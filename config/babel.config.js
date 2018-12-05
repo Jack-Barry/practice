@@ -3,7 +3,10 @@ module.exports = api => {
 
   return {
     plugins: ['@babel/plugin-proposal-class-properties'],
-    presets: ['@babel/preset-env', '@babel/preset-typescript'],
+    presets: [
+      ['@babel/preset-env', { targets: { node: 'current' } }],
+      '@babel/preset-typescript'
+    ],
     include: ['./../src'],
     exclude: ['node_modules'],
     ignore: ['./../src/**/*.spec.ts', './../src/**/*.spec.js'],

@@ -4,9 +4,10 @@
 
 ```
 root/
-│   index.js
 │   package.json
 │
+├───.vscode/
+├───config/
 ├───lib/
 └───src/
       globals.ts
@@ -16,14 +17,18 @@ root/
 ### `package.json`
 
 This is a Node project, so `package.json` is used for configuration regarding
-the Node environment. It's also where we specify what commands should be
-available from the command line, using the `"bin"` key.
+the Node environment.
 
-### `index.js`
+### `.vscode`
 
-This is where the command specified in `"bin"` key in `package.json` usually
-points to. It is the "entry point" of the application, and simply pulls in the
-content of the `index.js` file in the `lib` directory.
+Workspace settings that are specific to the project are contained here. They're
+likely to include things like telling VS Code where to find configuration files
+and other information that would be different in other projects you may work on.
+
+### `config`
+
+To keep the root directory clean, all configuration files for things like
+Babel, TypeScript, and Jest go in here.
 
 ### `lib`
 
@@ -33,7 +38,7 @@ portability.
 
 ### `src`
 
-This is where we write our code using _TypeScript_.
+This is where we write our source code using _TypeScript_.
 
 #### `globals.ts`
 
@@ -52,14 +57,51 @@ While writing code in the `src` directory, open two terminals and run the
 following commands:
 
 ```
-> npm run build:types -- --watch
+> npm run build:types
 ```
 
 and
 
 ```
-> npm run build:js -- --watch
+> npm run build:js
 ```
 
-This will compile our code into usable types for _TypeScript_, as well as
-portable vanilla _JavaScript_.
+This will watch for changes in our source code, and upon any changes will
+compile our code into usable types for _TypeScript_, as well as portable
+vanilla _JavaScript_.
+
+You may also want to run the following command before making a commit, as it
+will clean the `lib` directory before compiling your current code:
+
+```
+> npm run build
+```
+
+## Testing
+
+To ensure you don't break anything while adding your code, keep a terminal open
+and run the following command:
+
+```
+> npm run tdd
+```
+
+This will fire up _Jest_ and watch for changes, re-running any relevant tests
+as needed.
+
+## Using Module
+
+To use a module built with this boilerplate, you can install it through _npm_
+using a git repository. It's recommended that you set up SSH access for
+whichever respository you keep your module in on the machine where you'll be
+installing it into a project. You can install it into your project like this:
+
+```
+> npm i git+ssh:git@repohost.whatever:user/repo.git#branch
+```
+
+where `ssh` refers to the method you use to connect (can also be `https`),
+`repohost.whatever` is the site you use (i.e. `github.com` or `bitbucket.org`),
+`user` is the username for the owner of the repo, `repo` refers to your repo
+name, and `#branch` refers to the branch you want to install from (which is
+optional, if you leave it off you will install from the master branch).
